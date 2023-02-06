@@ -8,7 +8,7 @@ const Header = () => {
         <header>
             <h3>Stranger's Things</h3>
             <nav>
-                <button>Home</button>
+                <button onClick={() => navigate('/')}>Home</button>
                 <button>Things</button>
                 <button>My Profile</button>
                 <button onClick={() => navigate("/login")}>LogIn/Register</button>

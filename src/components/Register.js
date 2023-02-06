@@ -1,36 +1,82 @@
 import React, { useState } from "react";
 import "../register.css";
 
-const Register = () => {
+const Register = ({ APIURL }) => {
     const [ usernameInput, setUserNameInput ] = useState('');
     const [ passwordOneInput, setPasswordOneInput ] = useState('');
     const [ passwordTwoInput, setPasswordTwoInput ] = useState('');
+    const [ nameTaken, setNameTaken ] = useState(false);
     
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log(usernameInput);
-        console.log(passwordOneInput);
-        console.log(passwordTwoInput);
+         if (passwordOneInput === passwordTwoInput && usernameInput && passwordOneInput) {
+            try {
+                const response = await fetch(`${APIURL}/users/register`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        user: {
+                            username: usernameInput,
+                            password: passwordOneInput
+                        }
+                    })
+                });
+                const result = await response.json();
+                if (result.error.name === "UserExists") {
+                    setNameTaken(true);
+                };
+                // A successful registration should automatically log you in and redirect to profiles
+                // This can be added when a working log in page is created, using a similar api call
+            } catch (error) {
+                console.error("Something went wrong!", error);
+            };
+        };
     };
 
     return (
         <main>
             <form onSubmit={handleSubmit}>
-                <label htmlFor="username">Username:</label>
+                {
+                    (nameTaken) ?
+                        <p>Username is already taken! Try something else.</p> :
+                        null
+                }
+                <label htmlFor="username">Username (3 characters minimum):</label>
                 <input
                     name="username"
                     value={usernameInput}
-                    onChange={(event) => setUserNameInput(event.target.value)} />
-                    <label htmlFor="ppassword-one">Password:</label>
+                    minLength="3"
+                    maxLength="20"
+                    required
+                    onChange={(event) => {
+                        setUserNameInput(event.target.value)
+                        setNameTaken(false);
+                    }} />
+                    <label htmlFor="password-one">Password (8 characters minimum):</label>
                 <input
+                    type="password"
                     name="password-one"
                     value={passwordOneInput}
+                    minLength="8"
+                    maxLength="25"
+                    required
                     onChange={(event) => setPasswordOneInput(event.target.value)} />
                     <label htmlFor="password-two">Re-enter password:</label>
                 <input
+                    type="password"
                     name="password-two"
                     value={passwordTwoInput}
+                    minLength="8"
+                    maxLength="25"
+                    required
                     onChange={(event) => setPasswordTwoInput(event.target.value)} />
+                {
+                    (passwordOneInput !== passwordTwoInput) ?
+                        <p className="match-warning">Passwords must match!</p> :
+                        null
+                }
                 <button type="submit">Create Account</button>
             </form>
         </main>

@@ -7,13 +7,14 @@ import LogIn from "./components/LogIn";
 import Register from "./components/Register";
 
 const App = () => {
+    const APIURL = "https://strangers-things.herokuapp.com/api/2211-ftb-et-web-am"
     return (
         <>
             <Header />
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/login" element={<LogIn />} />
-                <Route path="/register" element={<Register />} />
+                <Route path="/register" element={<Register APIURL={APIURL} />} />
             </Routes>
         </>
     );
