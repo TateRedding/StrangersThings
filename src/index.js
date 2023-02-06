@@ -1,12 +1,24 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
+import { HashRouter, Routes, Route } from "react-router-dom";
+import Header from "./components/Header";
+import Home from "./components/Home";
 
 const App = () => {
     return (
-        <h1>Stranger's Things</h1>
+        <>
+            <Header />
+            <Routes>
+                <Route path="/" element={<Home />} />
+            </Routes>
+        </>
     );
 };
 
 const container = document.getElementById("root");
 const root = createRoot(container);
-root.render(<App />);
+root.render(
+    <HashRouter>
+        <App />
+    </HashRouter>
+);
