@@ -4,6 +4,7 @@ import { HashRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Home from "./components/Home";
 import LogIn from "./components/LogIn";
+import Register from "./components/Register";
 
 const App = () => {
     return (
@@ -12,6 +13,7 @@ const App = () => {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/login" element={<LogIn />} />
+                <Route path="/register" element={<Register />} />
             </Routes>
         </>
     );
