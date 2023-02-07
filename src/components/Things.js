@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import PostCard from "./PostCard";
+import "../things.css"
 
-const Profile = ({ APIURL, userToken }) => {
-    const [ userData, setUserData ] = useState({});
+const Things = ({ APIURL, userToken }) => {
+    const [ postData, setPostData ] = useState([]);
 
     const navigate = useNavigate();
 
@@ -10,9 +12,9 @@ const Profile = ({ APIURL, userToken }) => {
         if (!userToken) {
             navigate("/login");
         } else {
-            const getUserData = async() => {
+            const getPostData = async() => {
                 try {
-                    const response = await fetch(`${APIURL}/users/me`, {
+                    const response = await fetch(`${APIURL}/posts`, {
                         headers: {
                             "Content-Type": "application/json",
                             "Authorization": `Bearer ${userToken}`
@@ -20,28 +22,25 @@ const Profile = ({ APIURL, userToken }) => {
                     });
                     const result = await response.json();
                     if (result.success) {
-                        setUserData(result);
+                        setPostData(result.data.posts);
                     };
                 } catch (error) {
                     console.error("Something went wrong!", error);
                 };
             };
-        getUserData();
+            getPostData();
         };
     }, []);
 
     return (
-        <>
-            <div className="messages-container">
-                <h3>Inbox</h3>
-                {/* map thorough userData.data.messages and create message cards */}
-            </div>
-            <div className="messages-container">
-                <h3>Sent</h3>
-                {/* map thorough userData.data.messages and create message cards */}
-            </div>
-        </>
+        <div className="post-container">{
+            postData.map((post) => {
+                if (post.active) {
+                    return <PostCard key={post._id} post={post} />
+                };
+            })
+        }</div>
     );
 };
 
-export default Profile;
+export default Things;

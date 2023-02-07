@@ -9,7 +9,7 @@ const Header = ({ userToken, setUserToken } ) => {
             <h3>Stranger's Things</h3>
             <nav>
                 <button onClick={() => navigate('/')}>Home</button>
-                <button>Things</button>
+                <button onClick={() => navigate("/things")}>Things</button>
                 <button onClick={() => navigate("/profile")}>My Profile</button>
                 {
                     (userToken) ?

@@ -6,6 +6,7 @@ import Home from "./components/Home";
 import LogIn from "./components/LogIn";
 import Register from "./components/Register";
 import Profile from "./components/Profile";
+import Things from "./components/Things";
 
 const App = () => {
     const APIURL = "https://strangers-things.herokuapp.com/api/2211-ftb-et-web-am"
@@ -23,6 +24,7 @@ const App = () => {
                     <Route path="/login" element={<LogIn APIURL={APIURL} setUserToken={setUserToken} />} />
                     <Route path="/register" element={<Register APIURL={APIURL} setUserToken={setUserToken} />} />
                     <Route path="/profile" element={<Profile APIURL={APIURL} userToken={userToken} />} />
+                    <Route path="/things" element={<Things APIURL={APIURL} userToken={userToken} />} />
                 </Routes>
             </main>
         </>
