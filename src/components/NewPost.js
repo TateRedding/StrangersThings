@@ -16,8 +16,45 @@ const NewPost = ({ APIURL, userToken }) => {
         }
     }, []);
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
+        if (titleInput && descriptionInput && priceInput) {
+            const postObject = {
+                title: titleInput,
+                description: descriptionInput,
+                price: priceInput,
+            };
+            if (locationInput) {
+                postObject.location = locationInput;
+            };
+            if (willDeliverInput) {
+                postObject.willDeliver = willDeliverInput;
+            }
+            try {
+                const response = await fetch(`${APIURL}/posts`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${userToken}`
+                    },
+                    body: JSON.stringify({
+                        post: postObject
+                    })
+                });
+                const result = await response.json();
+                console.log(result);
+                if (result.success) {
+                    setTitleInput('');
+                    setDescriptionInput('');
+                    setPriceInput('');
+                    setLocationInput('');
+                    setWillDeliverInput(false);
+                    navigate("/things");
+                };
+            } catch (error) {
+                console.error("Something went wrong!", error);
+            };
+        };
     };
 
     return (
@@ -38,11 +75,10 @@ const NewPost = ({ APIURL, userToken }) => {
                 onChange={(event) => setDescriptionInput(event.target.value)} />
             <label htmlFor="price">Price*:</label>
             <input
-                type="number"
                 name="price"
                 value={priceInput}
                 required
-                onChange={(event) => setPriceInput(event.target.value.toString())} />
+                onChange={(event) => setPriceInput(event.target.value)} />
             <label htmlFor="location">Location (leave blank for on request):</label>
             <input
                 name="location"
@@ -53,6 +89,7 @@ const NewPost = ({ APIURL, userToken }) => {
             <input
                 type="checkbox"
                 name="will-deliver"
+                checked={willDeliverInput}
                 onChange={() => {
                     setWillDeliverInput(!willDeliverInput)
                 }} />
