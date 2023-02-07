@@ -33,13 +33,16 @@ const Things = ({ APIURL, userToken }) => {
     }, []);
 
     return (
-        <div className="post-container">{
-            postData.map((post) => {
-                if (post.active) {
-                    return <PostCard key={post._id} post={post} />
-                };
-            })
-        }</div>
+        <>
+            <button onClick={() => navigate("/newpost")}>Create Post</button>
+            <div className="post-container">{
+                postData.map((post) => {
+                    if (post.active) {
+                        return <PostCard key={post._id} post={post} />
+                    };
+                })
+            }</div>
+        </>
     );
 };
 
