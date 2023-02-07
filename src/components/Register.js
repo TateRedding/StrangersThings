@@ -1,11 +1,14 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../register.css";
 
-const Register = ({ APIURL }) => {
-    const [ usernameInput, setUserNameInput ] = useState('');
+const Register = ({ APIURL, setUserToken }) => {
+    const [ usernameInput, setUsernameInput ] = useState('');
     const [ passwordOneInput, setPasswordOneInput ] = useState('');
     const [ passwordTwoInput, setPasswordTwoInput ] = useState('');
     const [ nameTaken, setNameTaken ] = useState(false);
+
+    const navigate = useNavigate();
     
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -24,11 +27,15 @@ const Register = ({ APIURL }) => {
                     })
                 });
                 const result = await response.json();
-                if (result.error.name === "UserExists") {
+                if (result.error !== null && result.error.name === "UserExists") {
                     setNameTaken(true);
+                } else if (result.success) {
+                    setUserToken(result.data.token);
+                    setUsernameInput('');
+                    setPasswordOneInput('');
+                    setPasswordTwoInput('');
+                    navigate("/profile");
                 };
-                // A successful registration should automatically log you in and redirect to profiles
-                // This can be added when a working log in page is created, using a similar api call
             } catch (error) {
                 console.error("Something went wrong!", error);
             };
@@ -36,50 +43,48 @@ const Register = ({ APIURL }) => {
     };
 
     return (
-        <main>
-            <form onSubmit={handleSubmit}>
-                {
-                    (nameTaken) ?
-                        <p>Username is already taken! Try something else.</p> :
-                        null
-                }
-                <label htmlFor="username">Username (3 characters minimum):</label>
-                <input
-                    name="username"
-                    value={usernameInput}
-                    minLength="3"
-                    maxLength="20"
-                    required
-                    onChange={(event) => {
-                        setUserNameInput(event.target.value)
-                        setNameTaken(false);
-                    }} />
-                    <label htmlFor="password-one">Password (8 characters minimum):</label>
-                <input
-                    type="password"
-                    name="password-one"
-                    value={passwordOneInput}
-                    minLength="8"
-                    maxLength="25"
-                    required
-                    onChange={(event) => setPasswordOneInput(event.target.value)} />
-                    <label htmlFor="password-two">Re-enter password:</label>
-                <input
-                    type="password"
-                    name="password-two"
-                    value={passwordTwoInput}
-                    minLength="8"
-                    maxLength="25"
-                    required
-                    onChange={(event) => setPasswordTwoInput(event.target.value)} />
-                {
-                    (passwordOneInput !== passwordTwoInput) ?
-                        <p className="match-warning">Passwords must match!</p> :
-                        null
-                }
-                <button type="submit">Create Account</button>
-            </form>
-        </main>
+        <form onSubmit={handleSubmit}>
+            {
+                (nameTaken) ?
+                    <p>Username is already taken! Try something else.</p> :
+                    null
+            }
+            <label htmlFor="username">Username (3 characters minimum):</label>
+            <input
+                name="username"
+                value={usernameInput}
+                minLength="3"
+                maxLength="20"
+                required
+                onChange={(event) => {
+                    setUsernameInput(event.target.value)
+                    setNameTaken(false);
+                }} />
+            <label htmlFor="password-one">Password (8 characters minimum):</label>
+            <input
+                type="password"
+                name="password-one"
+                value={passwordOneInput}
+                minLength="8"
+                maxLength="25"
+                required
+                onChange={(event) => setPasswordOneInput(event.target.value)} />
+            <label htmlFor="password-two">Re-enter password:</label>
+            <input
+                type="password"
+                name="password-two"
+                value={passwordTwoInput}
+                minLength="8"
+                maxLength="25"
+                required
+                onChange={(event) => setPasswordTwoInput(event.target.value)} />
+            {
+                (passwordOneInput !== passwordTwoInput) ?
+                    <p className="match-warning">Passwords must match!</p> :
+                    null
+            }
+            <button type="submit">Create Account</button>
+        </form>
     );
 };
 
