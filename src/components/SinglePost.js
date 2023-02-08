@@ -9,6 +9,7 @@ const SinglePost = ({ post, deletePost }) => {
                     <PostCard post={post} deletePost={deletePost} /> :
                     null
             }
+            <p>Messages regarding this post will be displayed if sent or recieved by logged in user.</p>
         </div>
     );
 };

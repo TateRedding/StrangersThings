@@ -7,7 +7,8 @@ import LogIn from "./components/LogIn";
 import Register from "./components/Register";
 import Profile from "./components/Profile";
 import Things from "./components/Things";
-import AddOrEditPost from "./components/AddOrEditPost";
+import NewPost from "./components/NewPost";
+import EditPost from "./components/EditPost";
 
 const App = () => {
     const APIURL = "https://strangers-things.herokuapp.com/api/2211-ftb-et-web-am"
@@ -46,8 +47,8 @@ const App = () => {
                     <Route path="/profile" element={<Profile APIURL={APIURL} isLoggedIn={isLoggedIn} />} />
                     <Route path="/things" element={<Things APIURL={APIURL} isLoggedIn={isLoggedIn} postData={postData} getPostData={getPostData} />} />
                     <Route path="/things/:postId" element={<Things APIURL={APIURL} isLoggedIn={isLoggedIn} postData={postData} getPostData={getPostData} />} />
-                    <Route path="/newpost" element={<AddOrEditPost APIURL={APIURL} postData={postData} getPostData={getPostData} />} />
-                    <Route path="/edit/:postId" element={<AddOrEditPost APIURL={APIURL} postData={postData} getPostData={getPostData} />} />
+                    <Route path="/newpost" element={<NewPost APIURL={APIURL} getPostData={getPostData} />} />
+                    <Route path="/edit/:postId" element={<EditPost APIURL={APIURL} postData={postData} getPostData={getPostData} />} />
                 </Routes>
             </main>
         </>
