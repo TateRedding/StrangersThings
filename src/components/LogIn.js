@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const LogIn = ({ APIURL, setIsLoggedIn }) => {
     const [ usernameInput, setUsernameInput ] = useState('');
@@ -66,7 +66,7 @@ const LogIn = ({ APIURL, setIsLoggedIn }) => {
                 required
                 onChange={(event) => setPasswordInput(event.target.value)} />
             <button type="submit">Log In</button>
-            <button onClick={() => navigate("/register")}>Register</button>
+            <Link to="/register">Register</Link>
         </form>
     );
 };

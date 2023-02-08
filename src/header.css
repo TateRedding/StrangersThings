@@ -6,6 +6,23 @@ header {
     background-color: gray;
 }
 
+.nav-link {
+    text-decoration: none;
+    color: black;
+}
+
 header > nav > button {
+    border: none;
+    cursor: pointer;
+}
+
+.nav-link, header > nav > button {
     margin: 1em;
+    padding: .25em;
+    font-size: 15px;
+    background-color: white;
+}
+
+.nav-link:hover, header > nav > button:hover {
+    background-color: red;
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import PostCard from "./PostCard";
 import "../things.css"
 
@@ -34,7 +34,7 @@ const Things = ({ APIURL, isLoggedIn }) => {
 
     return (
         <>
-            <button onClick={() => navigate("/newpost")}>Create Post</button>
+            <Link to="/newpost">Create Post</Link>
             <div className="post-container">{
                 postData.map((post) => {
                     if (post.active) {
