@@ -42,7 +42,6 @@ const NewPost = ({ APIURL, isLoggedIn }) => {
                     })
                 });
                 const result = await response.json();
-                console.log(result);
                 if (result.success) {
                     setTitleInput('');
                     setDescriptionInput('');

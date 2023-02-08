@@ -4,6 +4,7 @@ import "../header.css";
 
 const Header = ({ isLoggedIn, setIsLoggedIn } ) => {
     const navigate = useNavigate();
+    // If Links can have onclick events, would it be best to just have the Log Out button be a link as well?
     return (
         <header>
             <h3>Stranger's Things</h3>

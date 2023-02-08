@@ -8,26 +8,27 @@ const Things = ({ APIURL, isLoggedIn }) => {
 
     const navigate = useNavigate();
 
+    const getPostData = async() => {
+        try {
+            const response = await fetch(`${APIURL}/posts`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${window.localStorage.getItem('strangers-things-token')}`
+                }
+            });
+            const result = await response.json();
+            if (result.success) {
+                setPostData(result.data.posts);
+            };
+        } catch (error) {
+            console.error("Something went wrong!", error);
+        };
+    };
+
     useEffect(() => {
         if (!isLoggedIn) {
             navigate("/login");
         } else {
-            const getPostData = async() => {
-                try {
-                    const response = await fetch(`${APIURL}/posts`, {
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Authorization": `Bearer ${window.localStorage.getItem('strangers-things-token')}`
-                        }
-                    });
-                    const result = await response.json();
-                    if (result.success) {
-                        setPostData(result.data.posts);
-                    };
-                } catch (error) {
-                    console.error("Something went wrong!", error);
-                };
-            };
             getPostData();
         };
     }, []);
@@ -38,7 +39,7 @@ const Things = ({ APIURL, isLoggedIn }) => {
             <div className="post-container">{
                 postData.map((post) => {
                     if (post.active) {
-                        return <PostCard key={post._id} post={post} />
+                        return <PostCard key={post._id} post={post} APIURL={APIURL} getPostData={getPostData} />
                     };
                 })
             }</div>
