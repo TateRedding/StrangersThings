@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../register.css";
 
-const Register = ({ APIURL, setUserToken }) => {
+const Register = ({ APIURL, setIsLoggedIn }) => {
     const [ usernameInput, setUsernameInput ] = useState('');
     const [ passwordOneInput, setPasswordOneInput ] = useState('');
     const [ passwordTwoInput, setPasswordTwoInput ] = useState('');
@@ -30,7 +30,8 @@ const Register = ({ APIURL, setUserToken }) => {
                 if (result.error !== null && result.error.name === "UserExists") {
                     setNameTaken(true);
                 } else if (result.success) {
-                    setUserToken(result.data.token);
+                    window.localStorage.setItem('strangers-things-token', result.data.token);
+                    setIsLoggedIn(true);
                     setUsernameInput('');
                     setPasswordOneInput('');
                     setPasswordTwoInput('');

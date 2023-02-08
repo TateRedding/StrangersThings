@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const LogIn = ({ APIURL, setUserToken }) => {
+const LogIn = ({ APIURL, setIsLoggedIn }) => {
     const [ usernameInput, setUsernameInput ] = useState('');
     const [ passwordInput, setPasswordInput ] = useState('');
     const [ invalidLogin,  setInvalidLogin ] = useState(false);
@@ -29,7 +29,8 @@ const LogIn = ({ APIURL, setUserToken }) => {
                 if (result.error !== null && result.error.name === "InvalidCredentials") {
                     setInvalidLogin(true);
                 } else if (result.success) {
-                    setUserToken(result.data.token);
+                    window.localStorage.setItem('strangers-things-token', result.data.token)
+                    setIsLoggedIn(true);
                     setUsernameInput('');
                     setPasswordInput('');
                     navigate("/profile");

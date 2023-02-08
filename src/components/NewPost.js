@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const NewPost = ({ APIURL, userToken }) => {
+const NewPost = ({ APIURL, isLoggedIn }) => {
     const [ titleInput, setTitleInput ] = useState('');
     const [ descriptionInput, setDescriptionInput ] = useState('');
     const [ priceInput, setPriceInput ] = useState('');
@@ -11,7 +11,7 @@ const NewPost = ({ APIURL, userToken }) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!userToken) {
+        if (!isLoggedIn) {
             navigate("/login");
         }
     }, []);
@@ -35,7 +35,7 @@ const NewPost = ({ APIURL, userToken }) => {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
-                        "Authorization": `Bearer ${userToken}`
+                        "Authorization": `Bearer ${window.localStorage.getItem('strangers-things-token')}`
                     },
                     body: JSON.stringify({
                         post: postObject

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Profile = ({ APIURL, userToken }) => {
+const Profile = ({ APIURL, isLoggedIn }) => {
     const [ userData, setUserData ] = useState({});
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!userToken) {
+        if (!isLoggedIn) {
             navigate("/login");
         } else {
             const getUserData = async() => {
@@ -15,7 +15,7 @@ const Profile = ({ APIURL, userToken }) => {
                     const response = await fetch(`${APIURL}/users/me`, {
                         headers: {
                             "Content-Type": "application/json",
-                            "Authorization": `Bearer ${userToken}`
+                            "Authorization": `Bearer ${window.localStorage.getItem('strangers-things-token')}`
                         }
                     });
                     const result = await response.json();

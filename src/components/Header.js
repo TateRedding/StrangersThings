@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../header.css";
 
-const Header = ({ userToken, setUserToken } ) => {
+const Header = ({ isLoggedIn, setIsLogegdIn } ) => {
     const navigate = useNavigate();
     return (
         <header>
@@ -12,9 +12,10 @@ const Header = ({ userToken, setUserToken } ) => {
                 <button onClick={() => navigate("/things")}>Things</button>
                 <button onClick={() => navigate("/profile")}>My Profile</button>
                 {
-                    (userToken) ?
+                    (isLoggedIn) ?
                         <button onClick={() => {
-                            setUserToken('')
+                            window.localStorage.removeItem('strangers-things-token');
+                            setIsLogegdIn(false);
                             navigate("/");
                         }}>Log Out</button> :
                         <button onClick={() => navigate("/login")}>Log In/Register</button>

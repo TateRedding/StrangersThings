@@ -11,22 +11,19 @@ import NewPost from "./components/NewPost";
 
 const App = () => {
     const APIURL = "https://strangers-things.herokuapp.com/api/2211-ftb-et-web-am"
-    const [ userToken, setUserToken ] = useState('');
-
-    // For profile and posts page, useEffect on a load should first check if userToken is true:
-    // if true, get the information needed for the page, if not, redirect to /login
+    const [ isLoggedIn, setIsLoggedIn ] = useState(window.localStorage.getItem('strangers-things-token'));
 
     return (
         <>
-            <Header userToken={userToken} setUserToken={setUserToken} />
+            <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
             <main>
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/login" element={<LogIn APIURL={APIURL} setUserToken={setUserToken} />} />
-                    <Route path="/register" element={<Register APIURL={APIURL} setUserToken={setUserToken} />} />
-                    <Route path="/profile" element={<Profile APIURL={APIURL} userToken={userToken} />} />
-                    <Route path="/things" element={<Things APIURL={APIURL} userToken={userToken} />} />
-                    <Route path="/newpost" element={<NewPost APIURL={APIURL} userToken={userToken} />} />
+                    <Route path="/login" element={<LogIn APIURL={APIURL} setIsLoggedIn={setIsLoggedIn} />} />
+                    <Route path="/register" element={<Register APIURL={APIURL} setIsLoggedIn={setIsLoggedIn} />} />
+                    <Route path="/profile" element={<Profile APIURL={APIURL} isLoggedIn={isLoggedIn} />} />
+                    <Route path="/things" element={<Things APIURL={APIURL} isLoggedIn={isLoggedIn} />} />
+                    <Route path="/newpost" element={<NewPost APIURL={APIURL} isLoggedIn={isLoggedIn} />} />
                 </Routes>
             </main>
         </>
