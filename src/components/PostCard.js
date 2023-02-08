@@ -14,7 +14,7 @@ const PostCard = ({ post, deletePost }) => {
                 {
                     post.isAuthor ?
                         <>
-                            <button>Edit</button>
+                            <Link to={`/edit/${post._id}`}>Edit</Link>
                             <button onClick={() => deletePost(post._id)}>Delete</button>
                         </> :
                         null

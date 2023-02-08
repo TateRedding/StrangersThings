@@ -1,20 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 
-const NewPost = ({ APIURL, isLoggedIn }) => {
+const NewPost = ({ APIURL }) => {
     const [ titleInput, setTitleInput ] = useState('');
     const [ descriptionInput, setDescriptionInput ] = useState('');
     const [ priceInput, setPriceInput ] = useState('');
     const [ locationInput, setLocationInput ] = useState('');
     const [ willDeliverInput, setWillDeliverInput ] = useState(false);
-
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        if (!isLoggedIn) {
-            navigate("/login");
-        }
-    }, []);
 
     const handleSubmit = async (event) => {
         event.preventDefault();

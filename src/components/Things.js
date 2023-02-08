@@ -4,28 +4,10 @@ import PostCard from "./PostCard";
 import "../things.css"
 import SinglePost from "./SinglePost";
 
-const Things = ({ APIURL, isLoggedIn }) => {
-    const [ postData, setPostData ] = useState([]);
+const Things = ({ APIURL, isLoggedIn, postData, getPostData}) => {
     const { postId } = useParams();
 
     const navigate = useNavigate();
-
-    const getPostData = async() => {
-        try {
-            const response = await fetch(`${APIURL}/posts`, {
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${window.localStorage.getItem('strangers-things-token')}`
-                }
-            });
-            const result = await response.json();
-            if (result.success) {
-                setPostData(result.data.posts);
-            };
-        } catch (error) {
-            console.error("Something went wrong!", error);
-        };
-    };
 
     const deletePost = async (postId) => {
         try {
@@ -45,9 +27,7 @@ const Things = ({ APIURL, isLoggedIn }) => {
     useEffect(() => {
         if (!isLoggedIn) {
             navigate("/login");
-        } else {
-            getPostData();
-        };
+        }
     }, []);
 
     return (

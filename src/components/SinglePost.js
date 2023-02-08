@@ -19,13 +19,13 @@ const SinglePost = ({ post, deletePost }) => {
                             {
                                 post.isAuthor ?
                                     <>
-                                        <button>Edit</button>
+                                        <Link to={`/edit/${post._id}`}>Edit</Link>
                                         <button onClick={() => {
                                             deletePost(post._id)
                                             navigate("/things")
                                         }}>Delete</button>
                                     </> :
-                                    <button>Message Seller</button>
+                                    <button>{`Message ${post.author.username}`}</button>
                             } 
                         </div>
                     </> :
