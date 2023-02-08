@@ -1,29 +1,11 @@
 import React, { useEffect } from "react";
-import { Link, useParams, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import PostCard from "./PostCard";
 import "../things.css"
-import SinglePost from "./SinglePost";
 
-const Things = ({ APIURL, isLoggedIn, postData, getPostData}) => {
-    const { postId } = useParams();
+const Things = ({ isLoggedIn, postData, deletePost}) => {
 
     const navigate = useNavigate();
-
-    const deletePost = async (postId) => {
-        try {
-            await fetch(`${APIURL}/posts/${postId}`, {
-                method: "DELETE",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${window.localStorage.getItem('strangers-things-token')}`
-                }
-            });
-            getPostData();
-            navigate("/things");
-        } catch (error) {
-            console.error("Something went wrong!", error);
-        };
-    };
 
     useEffect(() => {
         if (!isLoggedIn) {
@@ -32,10 +14,6 @@ const Things = ({ APIURL, isLoggedIn, postData, getPostData}) => {
     }, []);
 
     return (
-        postId ?
-            <>
-                <SinglePost post={postData.filter((post) => post._id === postId)[0]} deletePost={deletePost} />
-            </> :
             <>
                 <Link to="/newpost">Create Post</Link>
                 <div className="post-container">{

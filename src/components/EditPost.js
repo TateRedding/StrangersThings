@@ -17,7 +17,7 @@ const EditPost = ({ APIURL, postData, getPostData }) => {
         if (postData !== undefined) {
             setPost(postData.filter((post) => post._id === postId)[0]);
         }
-    }, [postData])
+    }, [postData]);
     
     useEffect(() => {
         if (post !== undefined) {

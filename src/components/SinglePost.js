@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import PostCard from "./PostCard";
 
-const SinglePost = ({ post, deletePost }) => {
+const SinglePost = ({ postData, deletePost }) => {
+    const [ post, setPost ] = useState({});
+
+    const { postId } = useParams();
+
+    useEffect(() => {
+        if (postData !== undefined) {
+            setPost(postData.filter((post) => post._id === postId)[0]);
+        }
+    }, [postData]);
+
     return (
         <div className="single-post-container">
             {
-                post !== undefined ?
+                post !== undefined && Object.keys(post).length > 0 ?
                     <PostCard post={post} deletePost={deletePost} /> :
                     null
             }

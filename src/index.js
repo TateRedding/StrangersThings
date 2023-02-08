@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { HashRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route, useNavigate } from "react-router-dom";
 import Header from "./components/Header";
 import Home from "./components/Home";
 import LogIn from "./components/LogIn";
 import Register from "./components/Register";
 import Profile from "./components/Profile";
 import Things from "./components/Things";
+import SinglePost from "./components/SinglePost";
 import NewPost from "./components/NewPost";
 import EditPost from "./components/EditPost";
 
@@ -14,6 +15,8 @@ const App = () => {
     const APIURL = "https://strangers-things.herokuapp.com/api/2211-ftb-et-web-am"
     const [ isLoggedIn, setIsLoggedIn ] = useState(window.localStorage.getItem('strangers-things-token'));
     const [ postData, setPostData ] = useState([]);
+
+    const navigate = useNavigate();
 
     const getPostData = async() => {
         try {
@@ -27,6 +30,22 @@ const App = () => {
             if (result.success) {
                 setPostData(result.data.posts);
             };
+        } catch (error) {
+            console.error("Something went wrong!", error);
+        };
+    };
+
+    const deletePost = async (postId) => {
+        try {
+            await fetch(`${APIURL}/posts/${postId}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${window.localStorage.getItem('strangers-things-token')}`
+                }
+            });
+            getPostData();
+            navigate("/things");
         } catch (error) {
             console.error("Something went wrong!", error);
         };
@@ -45,8 +64,8 @@ const App = () => {
                     <Route path="/login" element={<LogIn APIURL={APIURL} setIsLoggedIn={setIsLoggedIn} />} />
                     <Route path="/register" element={<Register APIURL={APIURL} setIsLoggedIn={setIsLoggedIn} />} />
                     <Route path="/profile" element={<Profile APIURL={APIURL} isLoggedIn={isLoggedIn} />} />
-                    <Route path="/things" element={<Things APIURL={APIURL} isLoggedIn={isLoggedIn} postData={postData} getPostData={getPostData} />} />
-                    <Route path="/things/:postId" element={<Things APIURL={APIURL} isLoggedIn={isLoggedIn} postData={postData} getPostData={getPostData} />} />
+                    <Route path="/things" element={<Things isLoggedIn={isLoggedIn} postData={postData} deletePost={deletePost} />} />
+                    <Route path="/things/:postId" element={<SinglePost postData={postData} deletePost={deletePost} />} />
                     <Route path="/newpost" element={<NewPost APIURL={APIURL} getPostData={getPostData} />} />
                     <Route path="/edit/:postId" element={<EditPost APIURL={APIURL} postData={postData} getPostData={getPostData} />} />
                 </Routes>
