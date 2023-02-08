@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const EditPost = ({ post }) => {
+const EditPost = ({ post, getPostData }) => {
     const [ titleInput, setTitleInput ] = useState('');
     const [ descriptionInput, setDescriptionInput ] = useState('');
     const [ priceInput, setPriceInput ] = useState('');
@@ -26,7 +26,7 @@ const EditPost = ({ post }) => {
     
     return (
         <>
-            <p>Leaving a box blank will not change that detail</p>
+            <p>Leaving a box blank will leave detail unchanged</p>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="title">Title:</label>
                 <input

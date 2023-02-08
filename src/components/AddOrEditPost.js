@@ -9,8 +9,8 @@ const AddOrEditPost = ({ APIURL, postData, getPostData }) => {
     return (
         <>{
             postId ?
-                <EditPost APIURL={APIURL} post={postData.filter((post) => post._id === postId)[0]} /> :
-                <NewPost APIURL={APIURL} />
+                <EditPost APIURL={APIURL} post={postData.filter((post) => post._id === postId)[0]} getPostData={getPostData} /> :
+                <NewPost APIURL={APIURL} getPostData={getPostData} />
         }</>
     )
 

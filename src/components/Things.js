@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useParams, useNavigate, useLocation } from "react-router-dom";
 import PostCard from "./PostCard";
 import "../things.css"
 import SinglePost from "./SinglePost";
@@ -19,6 +19,7 @@ const Things = ({ APIURL, isLoggedIn, postData, getPostData}) => {
                 }
             });
             getPostData();
+            navigate("/things");
         } catch (error) {
             console.error("Something went wrong!", error);
         };

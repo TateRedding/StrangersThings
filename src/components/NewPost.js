@@ -1,11 +1,14 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const NewPost = ({ APIURL }) => {
+const NewPost = ({ APIURL, getPostData }) => {
     const [ titleInput, setTitleInput ] = useState('');
     const [ descriptionInput, setDescriptionInput ] = useState('');
     const [ priceInput, setPriceInput ] = useState('');
     const [ locationInput, setLocationInput ] = useState('');
     const [ willDeliverInput, setWillDeliverInput ] = useState(false);
+
+    const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -39,6 +42,7 @@ const NewPost = ({ APIURL }) => {
                     setPriceInput('');
                     setLocationInput('');
                     setWillDeliverInput(false);
+                    getPostData();
                     navigate("/things");
                 };
             } catch (error) {
