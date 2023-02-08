@@ -23,6 +23,7 @@ const App = () => {
                     <Route path="/register" element={<Register APIURL={APIURL} setIsLoggedIn={setIsLoggedIn} />} />
                     <Route path="/profile" element={<Profile APIURL={APIURL} isLoggedIn={isLoggedIn} />} />
                     <Route path="/things" element={<Things APIURL={APIURL} isLoggedIn={isLoggedIn} />} />
+                    <Route path="/things/:postId" element={<Things APIURL={APIURL} isLoggedIn={isLoggedIn} />} />
                     <Route path="/newpost" element={<NewPost APIURL={APIURL} isLoggedIn={isLoggedIn} />} />
                 </Routes>
             </main>

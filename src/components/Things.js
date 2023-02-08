@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import PostCard from "./PostCard";
 import "../things.css"
+import SinglePost from "./SinglePost";
 
 const Things = ({ APIURL, isLoggedIn }) => {
     const [ postData, setPostData ] = useState([]);
+    const { postId } = useParams();
 
     const navigate = useNavigate();
 
@@ -25,6 +27,21 @@ const Things = ({ APIURL, isLoggedIn }) => {
         };
     };
 
+    const deletePost = async (postId) => {
+        try {
+            await fetch(`${APIURL}/posts/${postId}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${window.localStorage.getItem('strangers-things-token')}`
+                }
+            });
+            getPostData();
+        } catch (error) {
+            console.error("Something went wrong!", error);
+        };
+    };
+
     useEffect(() => {
         if (!isLoggedIn) {
             navigate("/login");
@@ -34,16 +51,20 @@ const Things = ({ APIURL, isLoggedIn }) => {
     }, []);
 
     return (
-        <>
-            <Link to="/newpost">Create Post</Link>
-            <div className="post-container">{
-                postData.map((post) => {
-                    if (post.active) {
-                        return <PostCard key={post._id} post={post} APIURL={APIURL} getPostData={getPostData} />
-                    };
-                })
-            }</div>
-        </>
+        postId ?
+            <>
+                <SinglePost post={postData.filter((post) => post._id === postId)[0]} deletePost={deletePost} />
+            </> :
+            <>
+                <Link to="/newpost">Create Post</Link>
+                <div className="post-container">{
+                    postData.map((post) => {
+                        if (post.active) {
+                            return <PostCard key={post._id} post={post} deletePost={deletePost} />
+                        };
+                    })
+                }</div>
+            </>
     );
 };
 

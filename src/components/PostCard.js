@@ -1,21 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const PostCard = ({ post, APIURL, getPostData }) => {
-
-    const deletePost = async () => {
-        try {
-            await fetch(`${APIURL}/posts/${post._id}`, {
-                method: "DELETE",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${window.localStorage.getItem('strangers-things-token')}`
-                }
-            });
-            getPostData();
-        } catch (error) {
-            console.error("Something went wrong!", error);
-        };
-    };
+const PostCard = ({ post, deletePost }) => {
 
     return (
         <div className="post-card">
@@ -24,18 +10,17 @@ const PostCard = ({ post, APIURL, getPostData }) => {
             <p>{post.price}</p>
             <p>Location: {post.location}</p>
             <p>Will deliver? {post.willDeliver ? "Yes" : "No"}</p>
-            <div className="buttons">{
-                post.isAuthor ?
-                    (
+            <div className="buttons">
+                {
+                    post.isAuthor ?
                         <>
                             <button>Edit</button>
-                            <button onClick={deletePost}>Delete</button>
-                        </>
-                    ) :
-                    (
-                        <button>View Thing</button>
-                    )
-            }</div>
+                            <button onClick={() => deletePost(post._id)}>Delete</button>
+                        </> :
+                        null
+                }
+                <Link to={`/things/${post._id}`}>View Thing</Link>     
+            </div>
         </div>
     );
 };
