@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const LogIn = ({ APIURL, setIsLoggedIn }) => {
+const LogIn = ({ APIURL, setIsLoggedIn, getPostData }) => {
     const [ usernameInput, setUsernameInput ] = useState('');
     const [ passwordInput, setPasswordInput ] = useState('');
     const [ invalidLogin,  setInvalidLogin ] = useState(false);
 
     const navigate = useNavigate();
 
-    const handleSubmit = async (event) => {
+    const logIn = async (event) => {
         event.preventDefault();
         if (usernameInput && passwordInput) {
             setInvalidLogin(false);
@@ -33,6 +33,7 @@ const LogIn = ({ APIURL, setIsLoggedIn }) => {
                     setIsLoggedIn(true);
                     setUsernameInput('');
                     setPasswordInput('');
+                    getPostData();
                     navigate("/profile");
                 };
             } catch (error) {
@@ -42,7 +43,7 @@ const LogIn = ({ APIURL, setIsLoggedIn }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={logIn}>
             {
                 (invalidLogin) ?
                     <p>Incorrect username or password. Try again.</p> :

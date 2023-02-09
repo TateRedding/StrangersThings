@@ -1,10 +1,8 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../header.css";
 
 const Header = ({ isLoggedIn, setIsLoggedIn } ) => {
-    const navigate = useNavigate();
-    // If Links can have onclick events, would it be best to just have the Log Out button be a link as well?
     return (
         <header>
             <h3>Stranger's Things</h3>
@@ -15,11 +13,10 @@ const Header = ({ isLoggedIn, setIsLoggedIn } ) => {
                     (isLoggedIn) ?
                         <>
                             <Link to="/profile" className="nav-link">My Profile</Link>
-                            <button onClick={() => {
+                            <Link to="/" className="nav-link" onClick={() => {
                                 window.localStorage.removeItem('strangers-things-token');
                                 setIsLoggedIn(false);
-                                navigate("/");
-                            }}>Log Out</button>
+                            }}>Log Out</Link>
                         </> :
                         <Link to="/login" className="nav-link">Log In/ Register</Link>
                 }

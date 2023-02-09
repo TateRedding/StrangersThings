@@ -1,25 +1,20 @@
-import React, { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 import PostCard from "./PostCard";
 import "../things.css"
 
-const Things = ({ isLoggedIn, postData, deletePost}) => {
-
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        if (!isLoggedIn) {
-            navigate("/login");
-        }
-    }, []);
-
+const Things = ({ APIURL, isLoggedIn, postData, deletePost}) => {
     return (
             <>
-                <Link to="/newpost">Create Post</Link>
+                {
+                    isLoggedIn ?
+                        <Link to="/newpost">Create Post</Link> :
+                    null
+                } 
                 <div className="post-container">{
                     postData.map((post) => {
                         if (post.active) {
-                            return <PostCard key={post._id} post={post} deletePost={deletePost} />
+                            return <PostCard key={post._id} APIURL={APIURL} post={post} deletePost={deletePost} />
                         };
                     })
                 }</div>

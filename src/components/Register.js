@@ -10,7 +10,7 @@ const Register = ({ APIURL, setIsLoggedIn }) => {
 
     const navigate = useNavigate();
     
-    const handleSubmit = async (event) => {
+    const registerUser = async (event) => {
         event.preventDefault();
          if (passwordOneInput === passwordTwoInput && usernameInput && passwordOneInput) {
             try {
@@ -44,7 +44,7 @@ const Register = ({ APIURL, setIsLoggedIn }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={registerUser}>
             {
                 (nameTaken) ?
                     <p>Username is already taken! Try something else.</p> :

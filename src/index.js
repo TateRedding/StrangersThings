@@ -61,11 +61,11 @@ const App = () => {
             <main>
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/login" element={<LogIn APIURL={APIURL} setIsLoggedIn={setIsLoggedIn} />} />
+                    <Route path="/login" element={<LogIn APIURL={APIURL} setIsLoggedIn={setIsLoggedIn} getPostData={getPostData} />} />
                     <Route path="/register" element={<Register APIURL={APIURL} setIsLoggedIn={setIsLoggedIn} />} />
                     <Route path="/profile" element={<Profile APIURL={APIURL} isLoggedIn={isLoggedIn} />} />
-                    <Route path="/things" element={<Things isLoggedIn={isLoggedIn} postData={postData} deletePost={deletePost} />} />
-                    <Route path="/things/:postId" element={<SinglePost postData={postData} deletePost={deletePost} />} />
+                    <Route path="/things" element={<Things APIURL={APIURL} isLoggedIn={isLoggedIn} postData={postData} deletePost={deletePost} />} />
+                    <Route path="/things/:postId" element={<SinglePost APIURL={APIURL} postData={postData} deletePost={deletePost} />} />
                     <Route path="/newpost" element={<NewPost APIURL={APIURL} getPostData={getPostData} />} />
                     <Route path="/edit/:postId" element={<EditPost APIURL={APIURL} postData={postData} getPostData={getPostData} />} />
                 </Routes>

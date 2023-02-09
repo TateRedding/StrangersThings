@@ -1,8 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "../post-card.css"
 
-const PostCard = ({ post, deletePost }) => {
+const PostCard = ({ APIURL, post, deletePost }) => {
+    const [ messageInput, setMessageInput ] = useState('');
+
+    const sendMessage = async (event) => {
+        event.preventDefault();
+        if (messageInput) {
+            try {
+                const response = await fetch(`${APIURL}/posts/${post._id}/messages`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${window.localStorage.getItem('strangers-things-token')}`
+                    },
+                    body: JSON.stringify({
+                        message: { content: messageInput }
+                    })
+                });
+                const result = await response.json();
+                if (result.success) {
+                    setMessageInput('');
+                };
+            } catch (error) {
+                console.error("Something went wrong!", error);
+            };
+        };
+    };
 
     return (
         <div className="post-card">
@@ -20,7 +45,15 @@ const PostCard = ({ post, deletePost }) => {
                             <button onClick={() => deletePost(post._id)}>Delete</button>
                         </> :
                         useLocation().pathname !== "/things" ?
-                            <button>{`Message ${post.author.username}`}</button> :
+                            <form onSubmit={sendMessage}>
+                                <input
+                                    value={messageInput}
+                                    placeholder={`Message ${post.author.username}`}
+                                    maxLength="500"
+                                    required
+                                    onChange={(event) => setMessageInput(event.target.value)} />
+                                <button type="submit">Send</button>
+                            </form> :
                             null
                 }
                 {

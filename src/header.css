@@ -11,18 +11,13 @@ header {
     color: black;
 }
 
-header > nav > button {
-    border: none;
-    cursor: pointer;
-}
-
-.nav-link, header > nav > button {
+.nav-link {
     margin: 1em;
     padding: .25em;
     font-size: 15px;
     background-color: white;
 }
 
-.nav-link:hover, header > nav > button:hover {
+.nav-link:hover {
     background-color: red;
 }

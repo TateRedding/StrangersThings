@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import PostCard from "./PostCard";
+import MessageCard from "./MessageCard";
 
-const SinglePost = ({ postData, deletePost }) => {
+const SinglePost = ({ APIURL, postData, deletePost }) => {
     const [ post, setPost ] = useState({});
 
     const { postId } = useParams();
 
     useEffect(() => {
-        if (postData !== undefined) {
+        if (postData.length > 0) {
             setPost(postData.filter((post) => post._id === postId)[0]);
         }
     }, [postData]);
@@ -17,10 +18,19 @@ const SinglePost = ({ postData, deletePost }) => {
         <div className="single-post-container">
             {
                 post !== undefined && Object.keys(post).length > 0 ?
-                    <PostCard post={post} deletePost={deletePost} /> :
+                    <PostCard APIURL={APIURL} post={post} deletePost={deletePost} /> :
                     null
             }
-            <p>Messages regarding this post will be displayed if sent or recieved by logged in user.</p>
+            {
+                post.isAuthor ?
+                    <>
+                        <p>Messages about this post</p>
+                        {
+                            post.messages.map((message) => <MessageCard key={message._id} message={message} /> )
+                        }
+                    </> :
+                    null
+            }
         </div>
     );
 };
