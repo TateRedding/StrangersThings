@@ -1,6 +1,9 @@
-.post-card {
+.post-card, .post-detials {
     display: flex;
     flex-direction: column;
+}
+
+.post-card {
     border: 1px solid black;
     margin: 1em 0;
 }

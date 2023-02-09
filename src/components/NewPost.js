@@ -84,9 +84,7 @@ const NewPost = ({ APIURL, getPostData }) => {
                 type="checkbox"
                 name="will-deliver"
                 checked={willDeliverInput}
-                onChange={() => {
-                    setWillDeliverInput(!willDeliverInput)
-                }} />
+                onChange={() => setWillDeliverInput(!willDeliverInput)} />
             <button type="submit">Post your Thing!</button>
         </form>
     );

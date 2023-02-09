@@ -26,7 +26,7 @@ const LogIn = ({ APIURL, setIsLoggedIn, getPostData }) => {
                     })
                 });
                 const result = await response.json();
-                if (result.error !== null && result.error.name === "InvalidCredentials") {
+                if (result.error && result.error.name === "InvalidCredentials") {
                     setInvalidLogin(true);
                 } else if (result.success) {
                     window.localStorage.setItem('strangers-things-token', result.data.token)

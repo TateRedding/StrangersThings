@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import PostCard from "./PostCard";
+import SinglePostCard from "./SinglePostCard";
 import MessageCard from "./MessageCard";
 
 const SinglePost = ({ APIURL, postData, deletePost }) => {
@@ -9,7 +9,7 @@ const SinglePost = ({ APIURL, postData, deletePost }) => {
     const { postId } = useParams();
 
     useEffect(() => {
-        if (postData.length > 0) {
+        if (postData.length) {
             setPost(postData.filter((post) => post._id === postId)[0]);
         }
     }, [postData]);
@@ -17,8 +17,8 @@ const SinglePost = ({ APIURL, postData, deletePost }) => {
     return (
         <div className="single-post-container">
             {
-                post !== undefined && Object.keys(post).length > 0 ?
-                    <PostCard APIURL={APIURL} post={post} deletePost={deletePost} /> :
+                post && Object.keys(post).length ?
+                    <SinglePostCard APIURL={APIURL} post={post} deletePost={deletePost} /> :
                     null
             }
             {
@@ -26,7 +26,9 @@ const SinglePost = ({ APIURL, postData, deletePost }) => {
                     <>
                         <p>Messages about this post</p>
                         {
-                            post.messages.map((message) => <MessageCard key={message._id} message={message} /> )
+                            post.messages.length ?
+                                post.messages.map((message) => <MessageCard key={message._id} message={message} /> ) :
+                                <p>None!</p>
                         }
                     </> :
                     null

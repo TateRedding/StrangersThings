@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import MessageCard from "./MessageCard";
 import "../profile.css"
 
-const Profile = ({ APIURL, isLoggedIn }) => {
+const Profile = ({ APIURL }) => {
     const [ userData, setUserData ] = useState({});
     const [ inbox, setInbox ] = useState([]);
     const [ sentMessages, setSentMessages ] = useState([]);
@@ -36,7 +35,7 @@ const Profile = ({ APIURL, isLoggedIn }) => {
                 <h2>{userData.username}</h2>
                 <h3>Inbox</h3>
                     {
-                        (Object.keys(userData).length > 0 && inbox.length > 0) ?
+                        (Object.keys(userData).length && inbox.length) ?
                             inbox.map((message) => <MessageCard key={message._id} message={message} loggedInUserId={userData._id} />) :
                             <h3>No messages to display!</h3>
                     }
@@ -44,7 +43,7 @@ const Profile = ({ APIURL, isLoggedIn }) => {
             <div className="message-container">
                 <h3>Sent</h3>
                     {
-                        (Object.keys(userData).length > 0 && sentMessages.length > 0) ?
+                        (Object.keys(userData).length && sentMessages.length) ?
                             sentMessages.map((message) => <MessageCard key={message._id} message={message} loggedInUserId={userData._id} />) :
                             <h3>No messages to display!</h3>
                     }

@@ -14,13 +14,13 @@ const EditPost = ({ APIURL, postData, getPostData }) => {
     const { postId } = useParams();
 
     useEffect(() => {
-        if (postData !== undefined) {
+        if (postData) {
             setPost(postData.filter((post) => post._id === postId)[0]);
         }
     }, [postData]);
     
     useEffect(() => {
-        if (post !== undefined) {
+        if (post) {
             setTitleInput(post.title);
             setDescriptionInput(post.description);
             setPriceInput(post.price);
@@ -31,7 +31,7 @@ const EditPost = ({ APIURL, postData, getPostData }) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        if (post === undefined) {
+        if (!post) {
             return;
         };
         const postObject = {};
@@ -50,7 +50,7 @@ const EditPost = ({ APIURL, postData, getPostData }) => {
         if (willDeliverInput && willDeliverInput !== post.willDeliver) {
             postObject.willDeliver = willDeliverInput;
         };
-        if (Object.keys(postObject).length !== 0) {
+        if (Object.keys(postObject).length) {
             try {
                 const response = await fetch(`${APIURL}/posts/${postId}`, {
                     method: "PATCH",

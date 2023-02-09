@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import PostCard from "./PostCard";
 import "../things.css"
 
-const Things = ({ APIURL, isLoggedIn, postData, deletePost}) => {
+const Things = ({ isLoggedIn, postData, deletePost }) => {
     return (
             <>
                 {
@@ -14,7 +14,7 @@ const Things = ({ APIURL, isLoggedIn, postData, deletePost}) => {
                 <div className="post-container">{
                     postData.map((post) => {
                         if (post.active) {
-                            return <PostCard key={post._id} APIURL={APIURL} post={post} deletePost={deletePost} />
+                            return <PostCard key={post._id} post={post} deletePost={deletePost} />
                         };
                     })
                 }</div>

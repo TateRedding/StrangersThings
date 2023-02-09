@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../register.css";
 
 const Register = ({ APIURL, setIsLoggedIn }) => {
@@ -85,6 +85,7 @@ const Register = ({ APIURL, setIsLoggedIn }) => {
                     null
             }
             <button type="submit">Create Account</button>
+            <Link to="/login">Already have an account?</Link>
         </form>
     );
 };
