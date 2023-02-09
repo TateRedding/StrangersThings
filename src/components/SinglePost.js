@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import SinglePostCard from "./SinglePostCard";
 import MessageCard from "./MessageCard";
 
-const SinglePost = ({ APIURL, postData, deletePost }) => {
+const SinglePost = ({ APIURL, isLoggedIn, postData, deletePost }) => {
     const [ post, setPost ] = useState({});
 
     const { postId } = useParams();
@@ -18,7 +18,7 @@ const SinglePost = ({ APIURL, postData, deletePost }) => {
         <div className="single-post-container">
             {
                 post && Object.keys(post).length ?
-                    <SinglePostCard APIURL={APIURL} post={post} deletePost={deletePost} /> :
+                    <SinglePostCard APIURL={APIURL} isLoggedIn={isLoggedIn} post={post} deletePost={deletePost} /> :
                     null
             }
             {

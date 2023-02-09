@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import PostDetails from "./PostDetails";
 import "../post-card.css";
 
-const SinglePostCard = ({ APIURL, post, deletePost }) => {
+const SinglePostCard = ({ APIURL, isLoggedIn, post, deletePost }) => {
     const [ messageInput, setMessageInput ] = useState('');
 
     const sendMessage = async (event) => {
@@ -40,15 +40,17 @@ const SinglePostCard = ({ APIURL, post, deletePost }) => {
                         <Link to={`/edit/${post._id}`}>Edit</Link>
                         <button onClick={() => deletePost(post._id)}>Delete</button>
                     </> :
-                        <form onSubmit={sendMessage}>
-                            <input
-                                value={messageInput}
-                                placeholder={`Message ${post.author.username}`}
-                                maxLength="500"
-                                required
-                                onChange={(event) => setMessageInput(event.target.value)} />
-                            <button type="submit">Send</button>
-                        </form>
+                        isLoggedIn ? 
+                            <form onSubmit={sendMessage}>
+                                <input
+                                    value={messageInput}
+                                    placeholder={`Message ${post.author.username}`}
+                                    maxLength="500"
+                                    required
+                                    onChange={(event) => setMessageInput(event.target.value)} />
+                                <button type="submit">Send</button>
+                            </form> :
+                            <p>Log in to message this seller!</p>
                 }
             </div>
         </div>
