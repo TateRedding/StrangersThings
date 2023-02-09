@@ -1,10 +1,21 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import FormControl from '@mui/material/FormControl';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import InputLabel from '@mui/material/InputLabel';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import TextField from "@mui/material/TextField";
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 const LogIn = ({ APIURL, setIsLoggedIn, getPostData }) => {
     const [ usernameInput, setUsernameInput ] = useState('');
     const [ passwordInput, setPasswordInput ] = useState('');
     const [ invalidLogin,  setInvalidLogin ] = useState(false);
+    const [ showPassword, setShowPassword] = useState(false);
 
     const navigate = useNavigate();
 
@@ -43,32 +54,53 @@ const LogIn = ({ APIURL, setIsLoggedIn, getPostData }) => {
     };
 
     return (
-        <form onSubmit={logIn}>
+        <Box 
+            component="form"
+            autoComplete="off"
+            sx={{ 
+                display: "flex", 
+                flexDirection: "column",
+                "& .MuiTextField-root, & .MuiFormControl-root, & .MuiButton-root": { m: .75}
+            }}
+            onSubmit={logIn}>
             {
                 (invalidLogin) ?
                     <p>Incorrect username or password. Try again.</p> :
                     null
             }
-            <label htmlFor="username">Username:</label>
-            <input
-                name="username"
+            <TextField
+                label="Username"
                 value={usernameInput}
                 minLength="3"
                 maxLength="20"
                 required
                 onChange={(event) => setUsernameInput(event.target.value)} />
-            <label htmlFor="password">Password:</label>
-            <input
-                type="password"
-                name="password"
-                value={passwordInput}
-                minLength="8"
-                maxLength="25"
-                required
-                onChange={(event) => setPasswordInput(event.target.value)} />
-            <button type="submit">Log In</button>
-            <Link to="/register">Register</Link>
-        </form>
+            <FormControl>
+                <InputLabel htmlFor="password">Password *</InputLabel>
+                <OutlinedInput
+                    id="password"
+                    type={showPassword ? 'text' : 'password'}
+                    label="Password *"
+                    value={passwordInput}
+                    minLength="8"
+                    required
+                    endAdornment={
+                    <InputAdornment position="end">
+                        <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={() => setShowPassword(!showPassword)}
+                        edge="end"
+                        >
+                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
+                    </InputAdornment>
+                    }
+                    onChange={(event) => setPasswordInput(event.target.value)}
+                />
+            </FormControl>
+            <Button type="submit" variant="contained">Log In</Button>
+            <p>Don't have an account? <Link to="/register">Click here!</Link></p>
+        </Box>
     );
 };
 

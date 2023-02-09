@@ -12,3 +12,7 @@ main {
     justify-content: center;
     margin-top: 3em;
 }
+
+.match-warning {
+    color: red;
+}
