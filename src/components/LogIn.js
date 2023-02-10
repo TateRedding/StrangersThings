@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import FormControl from '@mui/material/FormControl';
-import IconButton from '@mui/material/IconButton';
-import InputAdornment from '@mui/material/InputAdornment';
-import InputLabel from '@mui/material/InputLabel';
-import OutlinedInput from '@mui/material/OutlinedInput';
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import FormControl from "@mui/material/FormControl";
+import IconButton from "@mui/material/IconButton";
+import InputAdornment from "@mui/material/InputAdornment";
+import InputLabel from "@mui/material/InputLabel";
+import OutlinedInput from "@mui/material/OutlinedInput";
 import TextField from "@mui/material/TextField";
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 const LogIn = ({ APIURL, setIsLoggedIn, getPostData }) => {
     const [ usernameInput, setUsernameInput ] = useState('');
@@ -40,7 +40,7 @@ const LogIn = ({ APIURL, setIsLoggedIn, getPostData }) => {
                 if (result.error && result.error.name === "InvalidCredentials") {
                     setInvalidLogin(true);
                 } else if (result.success) {
-                    window.localStorage.setItem('strangers-things-token', result.data.token)
+                    window.localStorage.setItem("strangers-things-token", result.data.token)
                     setIsLoggedIn(true);
                     setUsernameInput('');
                     setPasswordInput('');
@@ -60,7 +60,8 @@ const LogIn = ({ APIURL, setIsLoggedIn, getPostData }) => {
             sx={{ 
                 display: "flex", 
                 flexDirection: "column",
-                "& .MuiTextField-root, & .MuiFormControl-root, & .MuiButton-root": { m: .75}
+                "& .MuiTextField-root, & .MuiFormControl-root, & .MuiButton-root": { m: .75 },
+                "& .MuiTextField-root, & .MuiFormControl-root": { width: "100%" }
             }}
             onSubmit={logIn}>
             {
@@ -79,7 +80,7 @@ const LogIn = ({ APIURL, setIsLoggedIn, getPostData }) => {
                 <InputLabel htmlFor="password">Password *</InputLabel>
                 <OutlinedInput
                     id="password"
-                    type={showPassword ? 'text' : 'password'}
+                    type={showPassword ? "text" : "password"}
                     label="Password *"
                     value={passwordInput}
                     minLength="8"
@@ -99,7 +100,7 @@ const LogIn = ({ APIURL, setIsLoggedIn, getPostData }) => {
                 />
             </FormControl>
             <Button type="submit" variant="contained">Log In</Button>
-            <p>Don't have an account? <Link to="/register">Click here!</Link></p>
+            <p>Don"t have an account? <Link to="/register">Click here!</Link></p>
         </Box>
     );
 };

@@ -1,26 +1,33 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import "../header.css";
+import { useNavigate } from "react-router-dom";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 
 const Header = ({ isLoggedIn, setIsLoggedIn } ) => {
+
+    const navigate = useNavigate();
+
     return (
         <header>
             <h3>Stranger's Things</h3>
-            <nav>
-                <Link to="/" className="nav-link">Home</Link>
-                <Link to="/things" className="nav-link">Things</Link>
+            <Box sx={{
+                "& .MuiButton-root": { m: .75 }
+            }}>
+                <Button variant="outlined" className="nav-button" onClick={() => navigate('/')}>Home</Button>
+                <Button variant="outlined" className="nav-button" onClick={() => navigate('/things')}>Things</Button>
                 {
                     (isLoggedIn) ?
                         <>
-                            <Link to="/profile" className="nav-link">My Profile</Link>
-                            <Link to="/" className="nav-link" onClick={() => {
-                                window.localStorage.removeItem('strangers-things-token');
+                            <Button variant="outlined" className="nav-button" onClick={() => navigate('/profile')}>My Profile</Button>
+                            <Button variant="outlined" className="nav-button" onClick={() => {
+                                window.localStorage.removeItem("strangers-things-token");
                                 setIsLoggedIn(false);
-                            }}>Log Out</Link>
+                                navigate('/')
+                            }}>Log Out</Button>
                         </> :
-                        <Link to="/login" className="nav-link">Log In/ Register</Link>
+                        <Button variant="outlined" className="nav-button" onClick={() => navigate('/login')}>Log In/ Register</Button>
                 }
-            </nav>
+            </Box>
         </header>
     );
 };

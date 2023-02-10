@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import PostCard from "./PostCard";
+import TextField from "@mui/material/TextField";
 import "../things.css"
 
 const Things = ({ isLoggedIn, postData, deletePost }) => {
@@ -25,8 +26,10 @@ const Things = ({ isLoggedIn, postData, deletePost }) => {
 
     return (
             <>
-                <input
-                    placeholder="Filter Posts"
+                <TextField
+                    label="Filter Posts"
+                    variant="standard"
+                    autoComplete="off"
                     onChange={(event) => filterPosts(event.target.value)} />
                 {
                     isLoggedIn ?

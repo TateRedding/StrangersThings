@@ -1,5 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Box from "@mui/material/Box";
+import Checkbox from "@mui/material/Checkbox";
+import Button from "@mui/material/Button";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormGroup from "@mui/material/FormGroup";
+import TextField from "@mui/material/TextField";
 
 const NewPost = ({ APIURL, getPostData }) => {
     const [ titleInput, setTitleInput ] = useState('');
@@ -10,7 +16,7 @@ const NewPost = ({ APIURL, getPostData }) => {
 
     const navigate = useNavigate();
 
-    const handleSubmit = async (event) => {
+    const createNewPost = async (event) => {
         event.preventDefault();
         if (titleInput && descriptionInput && priceInput) {
             const postObject = {
@@ -52,41 +58,47 @@ const NewPost = ({ APIURL, getPostData }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label htmlFor="title">Title*:</label>
-            <input
-                name="title"
+        <Box
+            component="form"
+            autoComplete="off"
+            sx={{ 
+                display: "flex", 
+                flexDirection: "column",
+                alignItems: "center",
+                "& .MuiTextField-root, & .MuiButton-root": { m: .75},
+                "& .MuiTextField-root": { width: "500px" }
+            }}
+            onSubmit={createNewPost}>
+            <TextField 
+                label="Title"
                 value={titleInput}
                 maxLength="100"
                 required
                 onChange={(event) => setTitleInput(event.target.value)} />
-            <label htmlFor="description">Description*:</label>
-            <input
-                name="description"
+            <TextField
+                label="Description"
                 value={descriptionInput}
-                maxLength="200"
+                maxLength="250"
                 required
+                multiline
+                rows={4}
                 onChange={(event) => setDescriptionInput(event.target.value)} />
-            <label htmlFor="price">Price*:</label>
-            <input
-                name="price"
+            <TextField
+                label="Price"
                 value={priceInput}
                 required
                 onChange={(event) => setPriceInput(event.target.value)} />
-            <label htmlFor="location">Location (leave blank for on request):</label>
-            <input
-                name="location"
+            <TextField
+                label="Location"
                 value={locationInput}
                 maxLength="100"
+                helperText="Leave blank for [On Request]"
                 onChange={(event) => setLocationInput(event.target.value)} />
-            <label htmlFor="will-deliver">Will Deliver?</label>
-            <input
-                type="checkbox"
-                name="will-deliver"
-                checked={willDeliverInput}
-                onChange={() => setWillDeliverInput(!willDeliverInput)} />
-            <button type="submit">Post your Thing!</button>
-        </form>
+            <FormGroup>
+                <FormControlLabel control={<Checkbox />} label="Will Deliver" />
+            </FormGroup>
+            <Button type="submit" variant="contained">Post Your Thing!</Button>
+        </Box>
     );
 };
 

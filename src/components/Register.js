@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import FormControl from '@mui/material/FormControl';
-import FormHelperText from '@mui/material/FormHelperText';
-import IconButton from '@mui/material/IconButton';
-import InputAdornment from '@mui/material/InputAdornment';
-import InputLabel from '@mui/material/InputLabel';
-import OutlinedInput from '@mui/material/OutlinedInput';
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import FormControl from "@mui/material/FormControl";
+import FormHelperText from "@mui/material/FormHelperText";
+import IconButton from "@mui/material/IconButton";
+import InputAdornment from "@mui/material/InputAdornment";
+import InputLabel from "@mui/material/InputLabel";
+import OutlinedInput from "@mui/material/OutlinedInput";
 import TextField from "@mui/material/TextField";
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 const Register = ({ APIURL, setIsLoggedIn }) => {
     const [ usernameInput, setUsernameInput ] = useState('');
@@ -42,7 +42,7 @@ const Register = ({ APIURL, setIsLoggedIn }) => {
                 if (result.error !== null && result.error.name === "UserExists") {
                     setNameTaken(true);
                 } else if (result.success) {
-                    window.localStorage.setItem('strangers-things-token', result.data.token);
+                    window.localStorage.setItem("strangers-things-token", result.data.token);
                     setIsLoggedIn(true);
                     setUsernameInput('');
                     setPasswordOneInput('');
@@ -62,7 +62,8 @@ const Register = ({ APIURL, setIsLoggedIn }) => {
             sx={{ 
                 display: "flex", 
                 flexDirection: "column",
-                "& .MuiTextField-root, & .MuiFormControl-root, & .MuiButton-root": { m: .75}
+                "& .MuiTextField-root, & .MuiFormControl-root, & .MuiButton-root": { m: .75},
+                "& .MuiTextField-root, & .MuiFormControl-root": { width: "100%" }
             }}
             onSubmit={registerUser}>
             {
@@ -82,7 +83,7 @@ const Register = ({ APIURL, setIsLoggedIn }) => {
                 <InputLabel htmlFor="password-one">Password *</InputLabel>
                 <OutlinedInput
                     id="password-one"
-                    type={showPasswordOne ? 'text' : 'password'}
+                    type={showPasswordOne ? "text" : "password"}
                     label="Password *"
                     value={passwordOneInput}
                     minLength="8"
@@ -110,7 +111,7 @@ const Register = ({ APIURL, setIsLoggedIn }) => {
                 <InputLabel htmlFor="password-two">Re-Enter Password *</InputLabel>
                 <OutlinedInput
                     id="password-two"
-                    type={showPasswordTwo ? 'text' : 'password'}
+                    type={showPasswordTwo ? "text" : "password"}
                     label="Re-Enter Password *"
                     value={passwordTwoInput}
                     minLength="8"
