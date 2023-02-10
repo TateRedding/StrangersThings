@@ -1,15 +1,15 @@
 import React from "react";
+import Typography from "@mui/material/Typography";
 
 const PostDetails = ({ post }) => {
     return (
-        <div className="post-details">
-            <h3>{post.title}</h3>
-            <h4>{post.author.username}</h4>
-            <p>{post.description}</p>
-            <p>{post.price}</p>
-            <p>Location: {post.location}</p>
-            <p>Will deliver? {post.willDeliver ? "Yes" : "No"}</p>
-        </div>
+        <>
+            <Typography variant="h3">{post.title}</Typography>
+            <Typography variant="h5">{post.author.username}</Typography>
+            <Typography>{post.description}</Typography>
+            <Typography>{post.price}</Typography>
+            <Typography>Will deliver? {post.willDeliver ? "Yes" : "No"}</Typography>
+        </>
     );
 };
 

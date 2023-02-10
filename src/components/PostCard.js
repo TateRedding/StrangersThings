@@ -1,24 +1,34 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
 import PostDetails from "./PostDetails";
-import "../post-card.css";
+
 
 const PostCard = ({ post, deletePost }) => {
+    const navigate = useNavigate();
     return (
-        <div className="post-card">
-            <PostDetails post={post} />
-            <div className="buttons">
+        <Card sx={{
+            m: 1,
+            minWidth: "60vw"
+        }}>
+            <CardContent>
+                <PostDetails post={post} />
+            </CardContent>
+            <CardActions>
                 {
                     post.isAuthor ?
                         <>
-                            <Link to={`/edit/${post._id}`}>Edit</Link>
-                            <button onClick={() => deletePost(post._id)}>Delete</button>
+                            <Button variant="outlined" onClick={() => navigate(`/edit/${post._id}`)}>Edit</Button>
+                            <Button variant="outlined" color="error" onClick={() => deletePost(post._id)}>Delete</Button>
                         </> :
                             null
                 }
-                <Link to={`/things/${post._id}`}>View Thing</Link>
-            </div>
-        </div>
+                <Button variant="outlined" onClick={() => navigate(`/things/${post._id}`)}>View Thing</Button>
+            </CardActions>
+        </Card>
     );
 };
 

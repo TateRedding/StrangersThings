@@ -1,10 +1,17 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
 import PostDetails from "./PostDetails";
-import "../post-card.css";
+import TextField from "@mui/material/TextField"
 
 const SinglePostCard = ({ APIURL, isLoggedIn, post, deletePost }) => {
     const [ messageInput, setMessageInput ] = useState('');
+
+    const navigate = useNavigate();
 
     const sendMessage = async (event) => {
         event.preventDefault();
@@ -31,29 +38,48 @@ const SinglePostCard = ({ APIURL, isLoggedIn, post, deletePost }) => {
     };
 
     return (
-        <div className="post-card">
-            <PostDetails post={post} />
-            <div className="buttons-or-message-form">
+        <Card sx={{
+            m: 1,
+            minWidth: "60vw",
+            "& .MuiTextField-root, & .MuiButton-root": { m: .75 },
+            "& .MuiTextField-root": { width: "100%" }
+        }}>
+            <CardContent>
+                <PostDetails post={post} />
+            </CardContent>
+            <CardActions>
                 {
                     post.isAuthor ?
                     <>
-                        <Link to={`/edit/${post._id}`}>Edit</Link>
-                        <button onClick={() => deletePost(post._id)}>Delete</button>
+                        <Button variant="outlined" onClick={() => navigate(`/edit/${post._id}`)}>Edit</Button>
+                        <Button variant="outlined" color="error" onClick={() => deletePost(post._id)}>Delete</Button>
+                        <Button variant="outlined" onClick={() => navigate("/things")}>Back</Button>
                     </> :
-                        isLoggedIn ? 
-                            <form onSubmit={sendMessage}>
-                                <input
+                        isLoggedIn ?
+                            <Box 
+                                sx={{
+                                    width: "80%"
+                                }}
+                                component="form"
+                                autoComplete="off"
+                                onSubmit={sendMessage}>
+                                <TextField
                                     value={messageInput}
                                     placeholder={`Message ${post.author.username}`}
                                     maxLength="500"
                                     required
+                                    multiline
                                     onChange={(event) => setMessageInput(event.target.value)} />
-                                <button type="submit">Send</button>
-                            </form> :
-                            <p>Log in to message this seller!</p>
+                                <Button type="submit">Send</Button>
+                                <Button variant="outlined" onClick={() => navigate("/things")}>Back</Button>
+                            </Box> :
+                            <Box>
+                                <p>Log in to message this seller!</p>
+                                <Button variant="outlined" onClick={() => navigate("/things")}>Back</Button>
+                            </Box>
                 }
-            </div>
-        </div>
+            </CardActions>
+        </Card>
     );
 };
 
