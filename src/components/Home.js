@@ -7,7 +7,7 @@ import CardContent from "@mui/material/CardContent";
 import PostDetails from "./PostDetails";
 
 const Home = ({ postData }) => {
-    const [ post, setPost ] = useState({});
+    const [post, setPost] = useState({});
 
     const navigate = useNavigate();
 

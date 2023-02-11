@@ -8,12 +8,12 @@ import FormGroup from "@mui/material/FormGroup";
 import TextField from "@mui/material/TextField";
 
 const EditPost = ({ APIURL, postData, getPostData }) => {
-    const [ post, setPost ] = useState({});
-    const [ titleInput, setTitleInput ] = useState('');
-    const [ descriptionInput, setDescriptionInput ] = useState('');
-    const [ priceInput, setPriceInput ] = useState('');
-    const [ locationInput, setLocationInput ] = useState('');
-    const [ willDeliverInput, setWillDeliverInput ] = useState('');
+    const [post, setPost] = useState({});
+    const [titleInput, setTitleInput] = useState('');
+    const [descriptionInput, setDescriptionInput] = useState('');
+    const [priceInput, setPriceInput] = useState('');
+    const [locationInput, setLocationInput] = useState('');
+    const [willDeliverInput, setWillDeliverInput] = useState('');
 
     const navigate = useNavigate();
 
@@ -24,7 +24,7 @@ const EditPost = ({ APIURL, postData, getPostData }) => {
             setPost(postData.filter((post) => post._id === postId)[0]);
         }
     }, [postData]);
-    
+
     useEffect(() => {
         if (post) {
             setTitleInput(post.title);
@@ -83,22 +83,22 @@ const EditPost = ({ APIURL, postData, getPostData }) => {
             };
         };
     };
-    
+
     return (
         <>
             <p>Leaving a box blank will result in no change to respective detail.</p>
             <Box
                 component="form"
                 autoComplete="off"
-                sx={{ 
-                    display: "flex", 
+                sx={{
+                    display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
-                    "& .MuiTextField-root, & .MuiButton-root": { m: .75},
+                    "& .MuiTextField-root, & .MuiButton-root": { m: .75 },
                     "& .MuiTextField-root": { width: "500px" }
                 }}
                 onSubmit={updatePost}>
-                <TextField 
+                <TextField
                     label="Title"
                     value={titleInput}
                     maxLength="100"

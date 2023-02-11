@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { ThemeProvider } from "@mui/material/styles";
 
-const Header = ({ isLoggedIn, setIsLoggedIn, theme } ) => {
+const Header = ({ isLoggedIn, setIsLoggedIn, theme }) => {
 
     const navigate = useNavigate();
 

@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import MessageCard from "./MessageCard";
 
 const Profile = ({ APIURL, postData }) => {
-    const [ userData, setUserData ] = useState({});
-    const [ inbox, setInbox ] = useState([]);
-    const [ sentMessages, setSentMessages ] = useState([]);
+    const [userData, setUserData] = useState({});
+    const [inbox, setInbox] = useState([]);
+    const [sentMessages, setSentMessages] = useState([]);
 
     useEffect(() => {
-        const getUserData = async() => {
+        const getUserData = async () => {
             try {
                 const response = await fetch(`${APIURL}/users/me`, {
                     headers: {
@@ -36,24 +36,24 @@ const Profile = ({ APIURL, postData }) => {
                     <>
                         <div className="message-container">
                             <h3>Inbox</h3>
-                                {
-                                    (Object.keys(userData).length && inbox.length) ?
-                                        inbox.map((message) => <MessageCard key={message._id} message={message} loggedInUserId={userData._id} postData={postData} />) :
-                                        <p>No messages to display!</p>
-                                }
+                            {
+                                (Object.keys(userData).length && inbox.length) ?
+                                    inbox.map((message) => <MessageCard key={message._id} message={message} loggedInUserId={userData._id} postData={postData} />) :
+                                    <p>No messages to display!</p>
+                            }
                         </div>
                         <div className="message-container">
                             <h3>Sent</h3>
-                                {
-                                    (Object.keys(userData).length && sentMessages.length) ?
-                                        sentMessages.map((message) => <MessageCard key={message._id} message={message} loggedInUserId={userData._id} postData={postData} />) :
-                                        <p>No messages to display!</p>
-                                }
+                            {
+                                (Object.keys(userData).length && sentMessages.length) ?
+                                    sentMessages.map((message) => <MessageCard key={message._id} message={message} loggedInUserId={userData._id} postData={postData} />) :
+                                    <p>No messages to display!</p>
+                            }
                         </div>
                     </> :
                     <h3>Loading messages...</h3>
             }
-            
+
         </div>
     );
 };

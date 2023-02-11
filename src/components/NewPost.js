@@ -8,11 +8,11 @@ import FormGroup from "@mui/material/FormGroup";
 import TextField from "@mui/material/TextField";
 
 const NewPost = ({ APIURL, getPostData }) => {
-    const [ titleInput, setTitleInput ] = useState('');
-    const [ descriptionInput, setDescriptionInput ] = useState('');
-    const [ priceInput, setPriceInput ] = useState('');
-    const [ locationInput, setLocationInput ] = useState('');
-    const [ willDeliverInput, setWillDeliverInput ] = useState(false);
+    const [titleInput, setTitleInput] = useState('');
+    const [descriptionInput, setDescriptionInput] = useState('');
+    const [priceInput, setPriceInput] = useState('');
+    const [locationInput, setLocationInput] = useState('');
+    const [willDeliverInput, setWillDeliverInput] = useState(false);
 
     const navigate = useNavigate();
 
@@ -61,15 +61,15 @@ const NewPost = ({ APIURL, getPostData }) => {
         <Box
             component="form"
             autoComplete="off"
-            sx={{ 
-                display: "flex", 
+            sx={{
+                display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                "& .MuiTextField-root, & .MuiButton-root": { m: .75},
+                "& .MuiTextField-root, & .MuiButton-root": { m: .75 },
                 "& .MuiTextField-root": { width: "500px" }
             }}
             onSubmit={createNewPost}>
-            <TextField 
+            <TextField
                 label="Title"
                 value={titleInput}
                 maxLength="100"

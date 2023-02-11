@@ -4,7 +4,7 @@ import SinglePostCard from "./SinglePostCard";
 import MessageCard from "./MessageCard";
 
 const SinglePost = ({ APIURL, isLoggedIn, postData, deletePost }) => {
-    const [ post, setPost ] = useState({});
+    const [post, setPost] = useState({});
 
     const { postId } = useParams();
 
@@ -26,7 +26,7 @@ const SinglePost = ({ APIURL, isLoggedIn, postData, deletePost }) => {
                     <div className="single-post-messages">
                         {
                             post.messages.length ?
-                                post.messages.map((message) => <MessageCard key={message._id} message={message} /> ) :
+                                post.messages.map((message) => <MessageCard key={message._id} message={message} />) :
                                 <p>No messages about this post.</p>
                         }
                     </div> :

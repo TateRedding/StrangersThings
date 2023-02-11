@@ -9,7 +9,7 @@ import PostDetails from "./PostDetails";
 import TextField from "@mui/material/TextField"
 
 const SinglePostCard = ({ APIURL, isLoggedIn, post, deletePost }) => {
-    const [ messageInput, setMessageInput ] = useState('');
+    const [messageInput, setMessageInput] = useState('');
 
     const navigate = useNavigate();
 
@@ -50,13 +50,13 @@ const SinglePostCard = ({ APIURL, isLoggedIn, post, deletePost }) => {
             <CardActions>
                 {
                     post.isAuthor ?
-                    <>
-                        <Button variant="outlined" onClick={() => navigate(`/edit/${post._id}`)}>Edit</Button>
-                        <Button variant="outlined" color="error" onClick={() => deletePost(post._id)}>Delete</Button>
-                        <Button variant="outlined" onClick={() => history.back()}>Back</Button>
-                    </> :
+                        <>
+                            <Button variant="outlined" onClick={() => navigate(`/edit/${post._id}`)}>Edit</Button>
+                            <Button variant="outlined" color="error" onClick={() => deletePost(post._id)}>Delete</Button>
+                            <Button variant="outlined" onClick={() => history.back()}>Back</Button>
+                        </> :
                         isLoggedIn ?
-                            <Box 
+                            <Box
                                 sx={{
                                     width: "80%"
                                 }}

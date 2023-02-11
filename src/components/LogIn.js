@@ -12,10 +12,10 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 const LogIn = ({ APIURL, setIsLoggedIn, getPostData }) => {
-    const [ usernameInput, setUsernameInput ] = useState('');
-    const [ passwordInput, setPasswordInput ] = useState('');
-    const [ invalidLogin,  setInvalidLogin ] = useState(false);
-    const [ showPassword, setShowPassword] = useState(false);
+    const [usernameInput, setUsernameInput] = useState('');
+    const [passwordInput, setPasswordInput] = useState('');
+    const [invalidLogin, setInvalidLogin] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     const navigate = useNavigate();
 
@@ -54,11 +54,11 @@ const LogIn = ({ APIURL, setIsLoggedIn, getPostData }) => {
     };
 
     return (
-        <Box 
+        <Box
             component="form"
             autoComplete="off"
-            sx={{ 
-                display: "flex", 
+            sx={{
+                display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
                 "& .MuiTextField-root, & .MuiFormControl-root, & .MuiButton-root": { m: .75 },
@@ -87,15 +87,15 @@ const LogIn = ({ APIURL, setIsLoggedIn, getPostData }) => {
                     minLength="8"
                     required
                     endAdornment={
-                    <InputAdornment position="end">
-                        <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={() => setShowPassword(!showPassword)}
-                        edge="end"
-                        >
-                        {showPassword ? <Visibility /> : <VisibilityOff />}
-                        </IconButton>
-                    </InputAdornment>
+                        <InputAdornment position="end">
+                            <IconButton
+                                aria-label="toggle password visibility"
+                                onClick={() => setShowPassword(!showPassword)}
+                                edge="end"
+                            >
+                                {showPassword ? <Visibility /> : <VisibilityOff />}
+                            </IconButton>
+                        </InputAdornment>
                     }
                     onChange={(event) => setPasswordInput(event.target.value)}
                 />

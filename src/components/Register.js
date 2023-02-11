@@ -13,18 +13,18 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 const Register = ({ APIURL, setIsLoggedIn }) => {
-    const [ usernameInput, setUsernameInput ] = useState('');
-    const [ passwordOneInput, setPasswordOneInput ] = useState('');
-    const [ passwordTwoInput, setPasswordTwoInput ] = useState('');
-    const [ nameTaken, setNameTaken ] = useState(false);
-    const [ showPasswordOne, setShowPasswordOne] = useState(false);
-    const [ showPasswordTwo, setShowPasswordTwo] = useState(false);
+    const [usernameInput, setUsernameInput] = useState('');
+    const [passwordOneInput, setPasswordOneInput] = useState('');
+    const [passwordTwoInput, setPasswordTwoInput] = useState('');
+    const [nameTaken, setNameTaken] = useState(false);
+    const [showPasswordOne, setShowPasswordOne] = useState(false);
+    const [showPasswordTwo, setShowPasswordTwo] = useState(false);
 
     const navigate = useNavigate();
-    
+
     const registerUser = async (event) => {
         event.preventDefault();
-         if (passwordOneInput === passwordTwoInput && usernameInput && passwordOneInput) {
+        if (passwordOneInput === passwordTwoInput && usernameInput && passwordOneInput) {
             try {
                 const response = await fetch(`${APIURL}/users/register`, {
                     method: "POST",
@@ -59,11 +59,11 @@ const Register = ({ APIURL, setIsLoggedIn }) => {
         <Box
             component="form"
             autoComplete="off"
-            sx={{ 
-                display: "flex", 
+            sx={{
+                display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                "& .MuiTextField-root, & .MuiFormControl-root, & .MuiButton-root": { m: .75},
+                "& .MuiTextField-root, & .MuiFormControl-root, & .MuiButton-root": { m: .75 },
                 "& .MuiTextField-root, & .MuiFormControl-root": { width: "100%" }
             }}
             onSubmit={registerUser}>
@@ -90,15 +90,15 @@ const Register = ({ APIURL, setIsLoggedIn }) => {
                     minLength="8"
                     required
                     endAdornment={
-                    <InputAdornment position="end">
-                        <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={() => setShowPasswordOne(!showPasswordOne)}
-                        edge="end"
-                        >
-                        {showPasswordOne ? <Visibility /> : <VisibilityOff />}
-                        </IconButton>
-                    </InputAdornment>
+                        <InputAdornment position="end">
+                            <IconButton
+                                aria-label="toggle password visibility"
+                                onClick={() => setShowPasswordOne(!showPasswordOne)}
+                                edge="end"
+                            >
+                                {showPasswordOne ? <Visibility /> : <VisibilityOff />}
+                            </IconButton>
+                        </InputAdornment>
                     }
                     onChange={(event) => setPasswordOneInput(event.target.value)} />
                 <FormHelperText>Must be at least 8 characters</FormHelperText>
@@ -118,15 +118,15 @@ const Register = ({ APIURL, setIsLoggedIn }) => {
                     minLength="8"
                     required
                     endAdornment={
-                    <InputAdornment position="end">
-                        <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={() => setShowPasswordTwo(!showPasswordTwo)}
-                        edge="end"
-                        >
-                        {showPasswordTwo ? <Visibility /> : <VisibilityOff />}
-                        </IconButton>
-                    </InputAdornment>
+                        <InputAdornment position="end">
+                            <IconButton
+                                aria-label="toggle password visibility"
+                                onClick={() => setShowPasswordTwo(!showPasswordTwo)}
+                                edge="end"
+                            >
+                                {showPasswordTwo ? <Visibility /> : <VisibilityOff />}
+                            </IconButton>
+                        </InputAdornment>
                     }
                     onChange={(event) => setPasswordTwoInput(event.target.value)}
                 />

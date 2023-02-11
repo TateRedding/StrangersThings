@@ -23,7 +23,7 @@ const MessageCard = ({ message, loggedInUserId, postData }) => {
             sx={{
                 m: 3,
                 minWidth: "60vw"
-        }}>
+            }}>
             <CardContent>
                 {
                     loggedInUserId === message.fromUser._id ?
@@ -38,7 +38,7 @@ const MessageCard = ({ message, loggedInUserId, postData }) => {
                                 isThingActive(message.post._id) ?
                                     null :
                                     <p className="warning">This Thing is no longer active!</p>
-                            } 
+                            }
                         </> :
                         null
                 }

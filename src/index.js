@@ -14,8 +14,8 @@ import EditPost from "./components/EditPost";
 
 const App = () => {
     const APIURL = "https://strangers-things.herokuapp.com/api/2211-ftb-et-web-am"
-    const [ isLoggedIn, setIsLoggedIn ] = useState(window.localStorage.getItem('strangers-things-token'));
-    const [ postData, setPostData ] = useState([]);
+    const [isLoggedIn, setIsLoggedIn] = useState(window.localStorage.getItem('strangers-things-token'));
+    const [postData, setPostData] = useState([]);
 
     const navigate = useNavigate();
 
@@ -33,7 +33,7 @@ const App = () => {
         }
     });
 
-    const getPostData = async() => {
+    const getPostData = async () => {
         try {
             const response = await fetch(`${APIURL}/posts`, {
                 headers: {
@@ -65,7 +65,7 @@ const App = () => {
             console.error("Something went wrong!", error);
         };
     };
-    
+
     useEffect(() => {
         getPostData();
     }, []);
@@ -75,7 +75,7 @@ const App = () => {
             <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} theme={theme} />
             <main>
                 <Routes>
-                    <Route path="/" element={<Home postData={postData}/>} />
+                    <Route path="/" element={<Home postData={postData} />} />
                     <Route path="/login" element={<LogIn APIURL={APIURL} setIsLoggedIn={setIsLoggedIn} getPostData={getPostData} />} />
                     <Route path="/register" element={<Register APIURL={APIURL} setIsLoggedIn={setIsLoggedIn} />} />
                     <Route path="/profile" element={<Profile APIURL={APIURL} postData={postData} />} />

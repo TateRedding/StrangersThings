@@ -24,7 +24,7 @@ const PostCard = ({ post, deletePost }) => {
                             <Button variant="outlined" onClick={() => navigate(`/edit/${post._id}`)}>Edit</Button>
                             <Button variant="outlined" color="error" onClick={() => deletePost(post._id)}>Delete</Button>
                         </> :
-                            null
+                        null
                 }
                 <Button variant="outlined" onClick={() => navigate(`/things/${post._id}`)}>View Thing</Button>
             </CardActions>
