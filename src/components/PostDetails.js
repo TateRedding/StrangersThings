@@ -7,7 +7,10 @@ const PostDetails = ({ post }) => {
             <h3>{post.author.username}</h3>
             <p>{post.description}</p>
             <p>{post.price}</p>
-            <p>Will deliver? {post.willDeliver ? "Yes" : "No"}</p>
+            <p>{
+                post.willDeliver ?
+                    "Willing to deliver" : "Not willing to deliver"
+            }</p>
         </div>
     );
 };

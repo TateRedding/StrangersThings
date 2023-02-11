@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { HashRouter, Routes, Route, useNavigate } from "react-router-dom";
+import { createTheme } from "@mui/material/styles";
 import Header from "./components/Header";
 import Home from "./components/Home";
 import LogIn from "./components/LogIn";
@@ -17,6 +18,20 @@ const App = () => {
     const [ postData, setPostData ] = useState([]);
 
     const navigate = useNavigate();
+
+    const theme = createTheme({
+        palette: {
+            primary: {
+                main: "#415865"
+            },
+            secondary: {
+                main: "#7a9eb1"
+            },
+            neutral: {
+                main: "#f9f8eb"
+            }
+        }
+    });
 
     const getPostData = async() => {
         try {
@@ -57,10 +72,10 @@ const App = () => {
 
     return (
         <>
-            <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+            <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} theme={theme} />
             <main>
                 <Routes>
-                    <Route path="/" element={<Home />} />
+                    <Route path="/" element={<Home postData={postData}/>} />
                     <Route path="/login" element={<LogIn APIURL={APIURL} setIsLoggedIn={setIsLoggedIn} getPostData={getPostData} />} />
                     <Route path="/register" element={<Register APIURL={APIURL} setIsLoggedIn={setIsLoggedIn} />} />
                     <Route path="/profile" element={<Profile APIURL={APIURL} postData={postData} />} />
