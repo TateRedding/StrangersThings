@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import PostCard from "./PostCard";
+import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import "../things.css"
 
 const Things = ({ isLoggedIn, postData, deletePost }) => {
     const [ currPostData, setCurrPostData ] = useState(postData);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (postData) {
@@ -30,11 +32,20 @@ const Things = ({ isLoggedIn, postData, deletePost }) => {
                     label="Filter Posts"
                     variant="standard"
                     autoComplete="off"
+                    sx={{
+                        width: "50ch"
+                    }}
                     onChange={(event) => filterPosts(event.target.value)} />
                 {
                     isLoggedIn ?
-                        <Link to="/newpost">Create Post</Link> :
-                    null
+                        <Button 
+                            variant="contained"
+                            onClick={() => navigate("/newpost")}
+                            sx={{
+                                m: 1
+                            }}
+                            >Create Post</Button> :
+                        null
                 }
                 <div className="post-container">{
                     currPostData.map((post) => {

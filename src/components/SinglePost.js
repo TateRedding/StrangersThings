@@ -23,14 +23,13 @@ const SinglePost = ({ APIURL, isLoggedIn, postData, deletePost }) => {
             }
             {
                 post.isAuthor ?
-                    <>
-                        <p>Messages about this post</p>
+                    <div className="single-post-messages">
                         {
                             post.messages.length ?
                                 post.messages.map((message) => <MessageCard key={message._id} message={message} /> ) :
-                                <p>None!</p>
+                                <p>No messages about this post.</p>
                         }
-                    </> :
+                    </div> :
                     null
             }
         </div>

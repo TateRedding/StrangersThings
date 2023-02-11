@@ -1,9 +1,13 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
+import CardActions from "@mui/material/CardActions";
 
 const MessageCard = ({ message, loggedInUserId, postData }) => {
+
+    const navigate = useNavigate();
 
     const isThingActive = (postId) => {
         const post = postData.filter((post) => post._id === postId)[0];
@@ -14,29 +18,38 @@ const MessageCard = ({ message, loggedInUserId, postData }) => {
     };
 
     return (
-        <Card sx={{
-            m: 1,
-            minWidth: "60vw"
+        <Card
+            className="message-card"
+            sx={{
+                m: 1,
+                minWidth: "60vw"
         }}>
             <CardContent>
                 {
                     loggedInUserId === message.fromUser._id ?
-                        <Typography>- Sent by me -</Typography> :
-                        <Typography variant="h6">From: {message.fromUser.username}</Typography>
+                        <h3>- Sent by me -</h3> :
+                        <h3>From: {message.fromUser.username}</h3>
                 }
                 {
                     message.post.title ?
-                        <Typography variant="h5" sx={{
-                            mb: 1,
-                            mt: 1
-                        }}>Re: {message.post.title} {
-                            isThingActive(message.post._id) ?
-                                null :
-                                <Typography color="red">This Thing is no longer active!</Typography>
-                        }</Typography> :
+                        <>
+                            <h3>Re: {message.post.title}</h3>
+                            {
+                                isThingActive(message.post._id) ?
+                                    null :
+                                    <p className="warning">This Thing is no longer active!</p>
+                            } 
+                        </> :
                         null
                 }
-            <p>{message.content}</p>
+                <p>{message.content}</p>
+                <CardActions>
+                    {
+                        isThingActive(message.post._id) ?
+                            <Button variant="outlined" onClick={() => navigate(`/things/${message.post._id}`)}>View Thing</Button> :
+                            null
+                    }
+                </CardActions>
             </CardContent>
         </Card>
     );

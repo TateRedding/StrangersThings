@@ -53,7 +53,7 @@ const SinglePostCard = ({ APIURL, isLoggedIn, post, deletePost }) => {
                     <>
                         <Button variant="outlined" onClick={() => navigate(`/edit/${post._id}`)}>Edit</Button>
                         <Button variant="outlined" color="error" onClick={() => deletePost(post._id)}>Delete</Button>
-                        <Button variant="outlined" onClick={() => navigate("/things")}>Back</Button>
+                        <Button variant="outlined" onClick={() => history.back()}>Back</Button>
                     </> :
                         isLoggedIn ?
                             <Box 
@@ -71,11 +71,11 @@ const SinglePostCard = ({ APIURL, isLoggedIn, post, deletePost }) => {
                                     multiline
                                     onChange={(event) => setMessageInput(event.target.value)} />
                                 <Button type="submit">Send</Button>
-                                <Button variant="outlined" onClick={() => navigate("/things")}>Back</Button>
+                                <Button variant="outlined" onClick={() => history.back()}>Back</Button>
                             </Box> :
                             <Box>
                                 <p>Log in to message this seller!</p>
-                                <Button variant="outlined" onClick={() => navigate("/things")}>Back</Button>
+                                <Button variant="outlined" onClick={() => history.back()}>Back</Button>
                             </Box>
                 }
             </CardActions>

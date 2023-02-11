@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import Box from "@mui/material/Box";
+import Checkbox from "@mui/material/Checkbox";
+import Button from "@mui/material/Button";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormGroup from "@mui/material/FormGroup";
+import TextField from "@mui/material/TextField";
 
 const EditPost = ({ APIURL, postData, getPostData }) => {
     const [ post, setPost ] = useState({});
@@ -29,7 +35,7 @@ const EditPost = ({ APIURL, postData, getPostData }) => {
         };
     }, [post]);
 
-    const handleSubmit = async (event) => {
+    const updatePost = async (event) => {
         event.preventDefault();
         if (!post) {
             return;
@@ -47,7 +53,7 @@ const EditPost = ({ APIURL, postData, getPostData }) => {
         if (locationInput && locationInput !== post.location) {
             postObject.location = locationInput;
         };
-        if (willDeliverInput && willDeliverInput !== post.willDeliver) {
+        if (willDeliverInput !== post.willDeliver) {
             postObject.willDeliver = willDeliverInput;
         };
         if (Object.keys(postObject).length) {
@@ -80,41 +86,48 @@ const EditPost = ({ APIURL, postData, getPostData }) => {
     
     return (
         <>
-            <p>Leaving a box blank will leave detail unchanged</p>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="title">Title:</label>
-                <input
-                    name="title"
-                    value={titleInput || ''}
+            <p>Leaving a box blank will result in no change to respective detail.</p>
+            <Box
+                component="form"
+                autoComplete="off"
+                sx={{ 
+                    display: "flex", 
+                    flexDirection: "column",
+                    alignItems: "center",
+                    "& .MuiTextField-root, & .MuiButton-root": { m: .75},
+                    "& .MuiTextField-root": { width: "500px" }
+                }}
+                onSubmit={updatePost}>
+                <TextField 
+                    label="Title"
+                    value={titleInput}
                     maxLength="100"
+                    required
                     onChange={(event) => setTitleInput(event.target.value)} />
-                <label htmlFor="description">Description:</label>
-                <input
-                    name="description"
-                    value={descriptionInput || ''}
-                    maxLength="200"
+                <TextField
+                    label="Description"
+                    value={descriptionInput}
+                    maxLength="250"
+                    required
+                    multiline
+                    rows={4}
                     onChange={(event) => setDescriptionInput(event.target.value)} />
-                <label htmlFor="price">Price:</label>
-                <input
-                    name="price"
-                    value={priceInput || ''}
+                <TextField
+                    label="Price"
+                    value={priceInput}
+                    required
                     onChange={(event) => setPriceInput(event.target.value)} />
-                <label htmlFor="location">Location:</label>
-                <input
-                    name="location"
-                    value={locationInput || ''}
+                <TextField
+                    label="Location"
+                    value={locationInput}
                     maxLength="100"
+                    helperText="Leave blank for [On Request]"
                     onChange={(event) => setLocationInput(event.target.value)} />
-                <label htmlFor="will-deliver">Will Deliver?</label>
-                <input
-                    type="checkbox"
-                    name="will-deliver"
-                    checked={willDeliverInput || false}
-                    onChange={() => {
-                        setWillDeliverInput(!willDeliverInput)
-                    }} />
-                <button type="submit">Update</button>
-            </form>
+                <FormGroup>
+                    <FormControlLabel control={<Checkbox />} label="Will Deliver" />
+                </FormGroup>
+                <Button type="submit" variant="contained">Post Your Thing!</Button>
+            </Box>
         </>
     );
 };

@@ -60,6 +60,7 @@ const LogIn = ({ APIURL, setIsLoggedIn, getPostData }) => {
             sx={{ 
                 display: "flex", 
                 flexDirection: "column",
+                alignItems: "center",
                 "& .MuiTextField-root, & .MuiFormControl-root, & .MuiButton-root": { m: .75 },
                 "& .MuiTextField-root, & .MuiFormControl-root": { width: "100%" }
             }}
@@ -100,7 +101,7 @@ const LogIn = ({ APIURL, setIsLoggedIn, getPostData }) => {
                 />
             </FormControl>
             <Button type="submit" variant="contained">Log In</Button>
-            <p>Don"t have an account? <Link to="/register">Click here!</Link></p>
+            <p>Don't have an account? <Link to="/register">Click here!</Link></p>
         </Box>
     );
 };

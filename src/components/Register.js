@@ -62,6 +62,7 @@ const Register = ({ APIURL, setIsLoggedIn }) => {
             sx={{ 
                 display: "flex", 
                 flexDirection: "column",
+                alignItems: "center",
                 "& .MuiTextField-root, & .MuiFormControl-root, & .MuiButton-root": { m: .75},
                 "& .MuiTextField-root, & .MuiFormControl-root": { width: "100%" }
             }}
@@ -104,15 +105,15 @@ const Register = ({ APIURL, setIsLoggedIn }) => {
             </FormControl>
             {
                 (passwordOneInput !== passwordTwoInput) ?
-                    <p className="match-warning">Passwords must match!</p> :
+                    <p className="warning">Passwords must match!</p> :
                     null
             }
             <FormControl>
-                <InputLabel htmlFor="password-two">Re-Enter Password *</InputLabel>
+                <InputLabel htmlFor="password-two">Re-enter Password *</InputLabel>
                 <OutlinedInput
                     id="password-two"
                     type={showPasswordTwo ? "text" : "password"}
-                    label="Re-Enter Password *"
+                    label="Re-enter Password *"
                     value={passwordTwoInput}
                     minLength="8"
                     required
@@ -131,7 +132,7 @@ const Register = ({ APIURL, setIsLoggedIn }) => {
                 />
             </FormControl>
             <Button type="submit" variant="contained">Register</Button>
-            <p>Alredy have an account? <Link to="/login">Click here!</Link></p>
+            <p>Already have an account? <Link to="/login">Click here!</Link></p>
         </Box>
     );
 };
