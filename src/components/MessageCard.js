@@ -22,7 +22,8 @@ const MessageCard = ({ message, loggedInUserId, postData, theme }) => {
         <Card
             className="message-card"
             sx={{
-                m: 3,
+                mt: 1,
+                mb: 1,
                 minWidth: "60vw"
             }}>
             <CardContent>

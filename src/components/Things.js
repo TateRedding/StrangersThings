@@ -50,18 +50,18 @@ const Things = ({ isLoggedIn, postData, deletePost, theme }) => {
                     >Create Post</Button> :
                     null
             }
-            <div className="post-container">{
-                currPostData.map((post) => {
+            {
+                currPostData.map((post, index) => {
                     if (post.active) {
                         return (
-                            <div className="post-container">
+                            <div className="post-container" key={post._id}>
                                 <PostCard key={post._id} post={post} deletePost={deletePost} theme={theme} />
-                                <Button className="back-to-top-button" onClick={() => scroll(0,0)}>Back to top</Button>
+                                <Button key={index} className="back-to-top-button" onClick={() => scroll(0, 0)}>Back to top</Button>
                             </div>
                         )
                     };
                 })
-            }</div>
+            }
         </ThemeProvider>
     );
 };

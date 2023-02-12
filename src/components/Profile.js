@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Button from "@mui/material/Button";
 import MessageCard from "./MessageCard";
 
 const Profile = ({ APIURL, postData, theme }) => {
@@ -29,7 +30,7 @@ const Profile = ({ APIURL, postData, theme }) => {
     }, []);
 
     return (
-        <div className="messages">
+        <div className="profile">
             <h2>{userData.username}</h2>
             {
                 (Object.keys(userData).length) ?
@@ -38,7 +39,13 @@ const Profile = ({ APIURL, postData, theme }) => {
                             <h3>Inbox</h3>
                             {
                                 (Object.keys(userData).length && inbox.length) ?
-                                    inbox.map((message) => <MessageCard key={message._id} message={message} loggedInUserId={userData._id} postData={postData} theme={theme} />) :
+                                    inbox.map((message) => {
+                                        return (
+                                            <div key={message._id} className="single-message-container">
+                                                <MessageCard message={message} loggedInUserId={userData._id} postData={postData} theme={theme} />
+                                                <Button className="back-to-top-button" onClick={() => scroll(0, 0)}>Back to top</Button>
+                                            </div>)
+                                    }) :
                                     <p>No messages to display!</p>
                             }
                         </div>
@@ -46,7 +53,13 @@ const Profile = ({ APIURL, postData, theme }) => {
                             <h3>Sent</h3>
                             {
                                 (Object.keys(userData).length && sentMessages.length) ?
-                                    sentMessages.map((message) => <MessageCard key={message._id} message={message} loggedInUserId={userData._id} postData={postData} theme={theme} />) :
+                                    sentMessages.map((message) => {
+                                        return (
+                                            <div key={message._id} className="single-message-container">
+                                                <MessageCard message={message} loggedInUserId={userData._id} postData={postData} theme={theme} />
+                                                <Button className="back-to-top-button" onClick={() => scroll(0, 0)}>Back to top</Button>
+                                            </div>)
+                                    }) :
                                     <p>No messages to display!</p>
                             }
                         </div>
