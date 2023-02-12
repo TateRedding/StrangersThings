@@ -21,13 +21,16 @@ const App = () => {
 
     const theme = createTheme({
         palette: {
-            primary: {
+            primaryDark: {
                 main: "#415865"
             },
-            secondary: {
+            primaryLight: {
                 main: "#7a9eb1"
             },
-            neutral: {
+            secondaryDark: {
+                main: "#ffe1b6"
+            },
+            secondaryLight: {
                 main: "#f9f8eb"
             }
         }
@@ -75,14 +78,14 @@ const App = () => {
             <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} theme={theme} />
             <main>
                 <Routes>
-                    <Route path="/" element={<Home postData={postData} />} />
-                    <Route path="/login" element={<LogIn APIURL={APIURL} setIsLoggedIn={setIsLoggedIn} getPostData={getPostData} />} />
-                    <Route path="/register" element={<Register APIURL={APIURL} setIsLoggedIn={setIsLoggedIn} />} />
-                    <Route path="/profile" element={<Profile APIURL={APIURL} postData={postData} />} />
-                    <Route path="/things" element={<Things isLoggedIn={isLoggedIn} postData={postData} deletePost={deletePost} />} />
-                    <Route path="/things/:postId" element={<SinglePost APIURL={APIURL} isLoggedIn={isLoggedIn} postData={postData} deletePost={deletePost} />} />
-                    <Route path="/newpost" element={<NewPost APIURL={APIURL} getPostData={getPostData} />} />
-                    <Route path="/edit/:postId" element={<EditPost APIURL={APIURL} postData={postData} getPostData={getPostData} />} />
+                    <Route path="/" element={<Home postData={postData} theme={theme} />} />
+                    <Route path="/login" element={<LogIn APIURL={APIURL} setIsLoggedIn={setIsLoggedIn} getPostData={getPostData} theme={theme} />} />
+                    <Route path="/register" element={<Register APIURL={APIURL} setIsLoggedIn={setIsLoggedIn} theme={theme} />} />
+                    <Route path="/profile" element={<Profile APIURL={APIURL} postData={postData} theme={theme}/>} />
+                    <Route path="/things" element={<Things isLoggedIn={isLoggedIn} postData={postData} deletePost={deletePost} theme={theme} />} />
+                    <Route path="/things/:postId" element={<SinglePost APIURL={APIURL} isLoggedIn={isLoggedIn} postData={postData} deletePost={deletePost} theme={theme} />} />
+                    <Route path="/newpost" element={<NewPost APIURL={APIURL} getPostData={getPostData} theme={theme} />} />
+                    <Route path="/edit/:postId" element={<EditPost APIURL={APIURL} postData={postData} getPostData={getPostData} theme={theme} />} />
                 </Routes>
             </main>
         </>

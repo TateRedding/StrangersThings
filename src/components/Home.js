@@ -5,8 +5,9 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import PostDetails from "./PostDetails";
+import { ThemeProvider } from "@mui/material/styles";
 
-const Home = ({ postData }) => {
+const Home = ({ postData, theme }) => {
     const [post, setPost] = useState({});
 
     const navigate = useNavigate();
@@ -34,7 +35,9 @@ const Home = ({ postData }) => {
                             <PostDetails post={post} />
                         </CardContent>
                         <CardActions>
-                            <Button variant="outlined" onClick={() => navigate(`/things/${post._id}`)}>View Thing</Button>
+                            <ThemeProvider theme={theme}>
+                                <Button variant="outlined" color="primaryDark" onClick={() => navigate(`/things/${post._id}`)}>View Thing</Button>
+                            </ThemeProvider>
                         </CardActions>
                     </Card> :
                     null

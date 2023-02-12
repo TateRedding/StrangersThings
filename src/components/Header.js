@@ -15,19 +15,19 @@ const Header = ({ isLoggedIn, setIsLoggedIn, theme }) => {
                 "& .MuiButton-root": { m: .75 }
             }}>
                 <ThemeProvider theme={theme}>
-                    <Button variant="outlined" className="nav-button" color="secondary" onClick={() => navigate('/')}>Home</Button>
-                    <Button variant="outlined" className="nav-button" color="secondary" onClick={() => navigate('/things')}>Things</Button>
+                    <Button variant="outlined" className="nav-button" color="primaryLight" onClick={() => navigate('/')}>Home</Button>
+                    <Button variant="outlined" className="nav-button" color="primaryLight" onClick={() => navigate('/things')}>Things</Button>
                     {
                         (isLoggedIn) ?
                             <>
-                                <Button variant="outlined" className="nav-button" color="secondary" onClick={() => navigate('/profile')}>My Profile</Button>
-                                <Button variant="outlined" className="nav-button" color="secondary" onClick={() => {
+                                <Button variant="outlined" className="nav-button" color="primaryLight" onClick={() => navigate('/profile')}>My Profile</Button>
+                                <Button variant="outlined" className="nav-button" color="primaryLight" onClick={() => {
                                     window.localStorage.removeItem("strangers-things-token");
                                     setIsLoggedIn(false);
                                     navigate('/')
                                 }}>Log Out</Button>
                             </> :
-                            <Button variant="outlined" className="nav-button" color="secondary" onClick={() => navigate('/login')}>Log In/ Register</Button>
+                            <Button variant="outlined" className="nav-button" color="primaryLight" onClick={() => navigate('/login')}>Log In/ Register</Button>
                     }
                 </ThemeProvider>
             </Box>

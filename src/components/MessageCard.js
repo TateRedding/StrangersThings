@@ -4,8 +4,9 @@ import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
+import { ThemeProvider } from "@mui/material/styles";
 
-const MessageCard = ({ message, loggedInUserId, postData }) => {
+const MessageCard = ({ message, loggedInUserId, postData, theme }) => {
 
     const navigate = useNavigate();
 
@@ -44,11 +45,13 @@ const MessageCard = ({ message, loggedInUserId, postData }) => {
                 }
                 <p>{message.content}</p>
                 <CardActions>
-                    {
-                        isThingActive(message.post._id) ?
-                            <Button variant="outlined" onClick={() => navigate(`/things/${message.post._id}`)}>View Thing</Button> :
-                            null
-                    }
+                    <ThemeProvider theme={theme}>
+                        {
+                            isThingActive(message.post._id) ?
+                                <Button variant="outlined" color="primaryDark" onClick={() => navigate(`/things/${message.post._id}`)}>View Thing</Button> :
+                                null
+                        }
+                    </ThemeProvider>
                 </CardActions>
             </CardContent>
         </Card>

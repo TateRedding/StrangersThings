@@ -6,14 +6,15 @@ import Button from "@mui/material/Button";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormGroup from "@mui/material/FormGroup";
 import TextField from "@mui/material/TextField";
+import { ThemeProvider } from "@mui/material/styles";
 
-const EditPost = ({ APIURL, postData, getPostData }) => {
+const EditPost = ({ APIURL, postData, getPostData, theme }) => {
     const [post, setPost] = useState({});
     const [titleInput, setTitleInput] = useState('');
     const [descriptionInput, setDescriptionInput] = useState('');
     const [priceInput, setPriceInput] = useState('');
     const [locationInput, setLocationInput] = useState('');
-    const [willDeliverInput, setWillDeliverInput] = useState('');
+    const [willDeliverInput, setWillDeliverInput] = useState(false);
 
     const navigate = useNavigate();
 
@@ -22,11 +23,11 @@ const EditPost = ({ APIURL, postData, getPostData }) => {
     useEffect(() => {
         if (postData) {
             setPost(postData.filter((post) => post._id === postId)[0]);
-        }
+        };
     }, [postData]);
 
     useEffect(() => {
-        if (post) {
+        if (post && Object.keys(post).length) {
             setTitleInput(post.title);
             setDescriptionInput(post.description);
             setPriceInput(post.price);
@@ -98,35 +99,38 @@ const EditPost = ({ APIURL, postData, getPostData }) => {
                     "& .MuiTextField-root": { width: "500px" }
                 }}
                 onSubmit={updatePost}>
-                <TextField
-                    label="Title"
-                    value={titleInput}
-                    maxLength="100"
-                    required
-                    onChange={(event) => setTitleInput(event.target.value)} />
-                <TextField
-                    label="Description"
-                    value={descriptionInput}
-                    maxLength="250"
-                    required
-                    multiline
-                    rows={4}
-                    onChange={(event) => setDescriptionInput(event.target.value)} />
-                <TextField
-                    label="Price"
-                    value={priceInput}
-                    required
-                    onChange={(event) => setPriceInput(event.target.value)} />
-                <TextField
-                    label="Location"
-                    value={locationInput}
-                    maxLength="100"
-                    helperText="Leave blank for [On Request]"
-                    onChange={(event) => setLocationInput(event.target.value)} />
-                <FormGroup>
-                    <FormControlLabel control={<Checkbox />} label="Will Deliver" />
-                </FormGroup>
-                <Button type="submit" variant="contained">Post Your Thing!</Button>
+                <ThemeProvider theme={theme}>
+                    <TextField
+                        label="Title"
+                        value={titleInput}
+                        maxLength="100"
+                        color="primaryDark"
+                        onChange={(event) => setTitleInput(event.target.value)} />
+                    <TextField
+                        label="Description"
+                        value={descriptionInput}
+                        maxLength="250"
+                        multiline
+                        rows={4}
+                        color="primaryDark"
+                        onChange={(event) => setDescriptionInput(event.target.value)} />
+                    <TextField
+                        label="Price"
+                        value={priceInput}
+                        color="primaryDark"
+                        onChange={(event) => setPriceInput(event.target.value)} />
+                    <TextField
+                        label="Location"
+                        value={locationInput}
+                        maxLength="100"
+                        color="primaryDark"
+                        helperText="Leave blank for [On Request]"
+                        onChange={(event) => setLocationInput(event.target.value)} />
+                    <FormGroup>
+                        <FormControlLabel control={<Checkbox color="primaryDark"/>} label="Will Deliver" />
+                    </FormGroup>
+                    <Button type="submit" variant="contained" color="primaryLight">Update Thing</Button>
+                </ThemeProvider>
             </Box>
         </>
     );

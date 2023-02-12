@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 import PostCard from "./PostCard";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import { ThemeProvider } from "@mui/material/styles";
 
-const Things = ({ isLoggedIn, postData, deletePost }) => {
+const Things = ({ isLoggedIn, postData, deletePost, theme }) => {
     const [currPostData, setCurrPostData] = useState(postData);
 
     const navigate = useNavigate();
@@ -27,11 +28,12 @@ const Things = ({ isLoggedIn, postData, deletePost }) => {
     };
 
     return (
-        <>
+        <ThemeProvider theme={theme}>
             <TextField
                 label="Filter Posts"
                 variant="standard"
                 autoComplete="off"
+                color="primaryDark"
                 sx={{
                     width: "50ch"
                 }}
@@ -40,6 +42,7 @@ const Things = ({ isLoggedIn, postData, deletePost }) => {
                 isLoggedIn ?
                     <Button
                         variant="contained"
+                        color="primaryLight"
                         onClick={() => navigate("/newpost")}
                         sx={{
                             m: 1
@@ -50,11 +53,11 @@ const Things = ({ isLoggedIn, postData, deletePost }) => {
             <div className="post-container">{
                 currPostData.map((post) => {
                     if (post.active) {
-                        return <PostCard key={post._id} post={post} deletePost={deletePost} />
+                        return <PostCard key={post._id} post={post} deletePost={deletePost} theme={theme} />
                     };
                 })
             }</div>
-        </>
+        </ThemeProvider>
     );
 };
 

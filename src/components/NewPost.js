@@ -6,8 +6,9 @@ import Button from "@mui/material/Button";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormGroup from "@mui/material/FormGroup";
 import TextField from "@mui/material/TextField";
+import { ThemeProvider } from "@mui/material/styles";
 
-const NewPost = ({ APIURL, getPostData }) => {
+const NewPost = ({ APIURL, getPostData, theme }) => {
     const [titleInput, setTitleInput] = useState('');
     const [descriptionInput, setDescriptionInput] = useState('');
     const [priceInput, setPriceInput] = useState('');
@@ -69,35 +70,41 @@ const NewPost = ({ APIURL, getPostData }) => {
                 "& .MuiTextField-root": { width: "500px" }
             }}
             onSubmit={createNewPost}>
-            <TextField
-                label="Title"
-                value={titleInput}
-                maxLength="100"
-                required
-                onChange={(event) => setTitleInput(event.target.value)} />
-            <TextField
-                label="Description"
-                value={descriptionInput}
-                maxLength="250"
-                required
-                multiline
-                rows={4}
-                onChange={(event) => setDescriptionInput(event.target.value)} />
-            <TextField
-                label="Price"
-                value={priceInput}
-                required
-                onChange={(event) => setPriceInput(event.target.value)} />
-            <TextField
-                label="Location"
-                value={locationInput}
-                maxLength="100"
-                helperText="Leave blank for [On Request]"
-                onChange={(event) => setLocationInput(event.target.value)} />
-            <FormGroup>
-                <FormControlLabel control={<Checkbox />} label="Will Deliver" />
-            </FormGroup>
-            <Button type="submit" variant="contained">Post Your Thing!</Button>
+            <ThemeProvider theme={theme}>
+                <TextField
+                    label="Title"
+                    value={titleInput}
+                    maxLength="100"
+                    required
+                    color="primaryDark"
+                    onChange={(event) => setTitleInput(event.target.value)} />
+                <TextField
+                    label="Description"
+                    value={descriptionInput}
+                    maxLength="250"
+                    required
+                    multiline
+                    rows={4}
+                    color="primaryDark"
+                    onChange={(event) => setDescriptionInput(event.target.value)} />
+                <TextField
+                    label="Price"
+                    value={priceInput}
+                    required
+                    color="primaryDark"
+                    onChange={(event) => setPriceInput(event.target.value)} />
+                <TextField
+                    label="Location"
+                    value={locationInput}
+                    maxLength="100"
+                    color="primaryDark"
+                    helperText="Leave blank for [On Request]"
+                    onChange={(event) => setLocationInput(event.target.value)} />
+                <FormGroup>
+                    <FormControlLabel control={<Checkbox color="primaryDark"/>} label="Will Deliver" />
+                </FormGroup>
+                <Button type="submit" variant="contained" color="primaryLight">Post Your Thing!</Button>
+            </ThemeProvider>
         </Box>
     );
 };

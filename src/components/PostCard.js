@@ -5,9 +5,10 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import PostDetails from "./PostDetails";
+import { ThemeProvider } from "@mui/material/styles";
 
 
-const PostCard = ({ post, deletePost }) => {
+const PostCard = ({ post, deletePost, theme }) => {
     const navigate = useNavigate();
     return (
         <Card sx={{
@@ -18,15 +19,17 @@ const PostCard = ({ post, deletePost }) => {
                 <PostDetails post={post} />
             </CardContent>
             <CardActions>
-                {
-                    post.isAuthor ?
-                        <>
-                            <Button variant="outlined" onClick={() => navigate(`/edit/${post._id}`)}>Edit</Button>
-                            <Button variant="outlined" color="error" onClick={() => deletePost(post._id)}>Delete</Button>
-                        </> :
-                        null
-                }
-                <Button variant="outlined" onClick={() => navigate(`/things/${post._id}`)}>View Thing</Button>
+                <ThemeProvider theme={theme}>
+                    {
+                        post.isAuthor ?
+                            <>
+                                <Button variant="outlined" color="primaryDark" onClick={() => navigate(`/edit/${post._id}`)}>Edit</Button>
+                                <Button variant="outlined" color="error" onClick={() => deletePost(post._id)}>Delete</Button>
+                            </> :
+                            null
+                    }
+                    <Button variant="outlined" color="primaryDark" onClick={() => navigate(`/things/${post._id}`)}>View Thing</Button>
+                </ThemeProvider>
             </CardActions>
         </Card>
     );

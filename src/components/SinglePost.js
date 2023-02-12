@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import SinglePostCard from "./SinglePostCard";
 import MessageCard from "./MessageCard";
 
-const SinglePost = ({ APIURL, isLoggedIn, postData, deletePost }) => {
+const SinglePost = ({ APIURL, isLoggedIn, postData, deletePost, theme }) => {
     const [post, setPost] = useState({});
 
     const { postId } = useParams();
@@ -18,7 +18,7 @@ const SinglePost = ({ APIURL, isLoggedIn, postData, deletePost }) => {
         <div className="single-post-container">
             {
                 post && Object.keys(post).length ?
-                    <SinglePostCard APIURL={APIURL} isLoggedIn={isLoggedIn} post={post} deletePost={deletePost} /> :
+                    <SinglePostCard APIURL={APIURL} isLoggedIn={isLoggedIn} post={post} deletePost={deletePost} theme={theme} /> :
                     null
             }
             {
@@ -26,7 +26,7 @@ const SinglePost = ({ APIURL, isLoggedIn, postData, deletePost }) => {
                     <div className="single-post-messages">
                         {
                             post.messages.length ?
-                                post.messages.map((message) => <MessageCard key={message._id} message={message} />) :
+                                post.messages.map((message) => <MessageCard key={message._id} message={message} theme={theme} />) :
                                 <p>No messages about this post.</p>
                         }
                     </div> :

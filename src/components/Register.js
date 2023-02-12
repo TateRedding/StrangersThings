@@ -9,10 +9,11 @@ import InputAdornment from "@mui/material/InputAdornment";
 import InputLabel from "@mui/material/InputLabel";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import TextField from "@mui/material/TextField";
+import { ThemeProvider } from "@mui/material/styles";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
-const Register = ({ APIURL, setIsLoggedIn }) => {
+const Register = ({ APIURL, setIsLoggedIn, theme }) => {
     const [usernameInput, setUsernameInput] = useState('');
     const [passwordOneInput, setPasswordOneInput] = useState('');
     const [passwordTwoInput, setPasswordTwoInput] = useState('');
@@ -72,67 +73,72 @@ const Register = ({ APIURL, setIsLoggedIn }) => {
                     <p>Username is already taken! Try something else.</p> :
                     null
             }
-            <TextField
-                label="Username"
-                value={usernameInput}
-                minLength="3"
-                maxLength="20"
-                required
-                helperText="Must be at least 3 characters"
-                onChange={(event) => setUsernameInput(event.target.value)} />
-            <FormControl>
-                <InputLabel htmlFor="password-one">Password *</InputLabel>
-                <OutlinedInput
-                    id="password-one"
-                    type={showPasswordOne ? "text" : "password"}
-                    label="Password *"
-                    value={passwordOneInput}
-                    minLength="8"
+            <ThemeProvider theme={theme}>
+                <TextField
+                    label="Username"
+                    value={usernameInput}
+                    minLength="3"
+                    maxLength="20"
                     required
-                    endAdornment={
-                        <InputAdornment position="end">
-                            <IconButton
-                                aria-label="toggle password visibility"
-                                onClick={() => setShowPasswordOne(!showPasswordOne)}
-                                edge="end"
-                            >
-                                {showPasswordOne ? <Visibility /> : <VisibilityOff />}
-                            </IconButton>
-                        </InputAdornment>
-                    }
-                    onChange={(event) => setPasswordOneInput(event.target.value)} />
-                <FormHelperText>Must be at least 8 characters</FormHelperText>
-            </FormControl>
-            {
-                (passwordOneInput !== passwordTwoInput) ?
-                    <p className="warning">Passwords must match!</p> :
-                    null
-            }
-            <FormControl>
-                <InputLabel htmlFor="password-two">Re-enter Password *</InputLabel>
-                <OutlinedInput
-                    id="password-two"
-                    type={showPasswordTwo ? "text" : "password"}
-                    label="Re-enter Password *"
-                    value={passwordTwoInput}
-                    minLength="8"
-                    required
-                    endAdornment={
-                        <InputAdornment position="end">
-                            <IconButton
-                                aria-label="toggle password visibility"
-                                onClick={() => setShowPasswordTwo(!showPasswordTwo)}
-                                edge="end"
-                            >
-                                {showPasswordTwo ? <Visibility /> : <VisibilityOff />}
-                            </IconButton>
-                        </InputAdornment>
-                    }
-                    onChange={(event) => setPasswordTwoInput(event.target.value)}
-                />
-            </FormControl>
-            <Button type="submit" variant="contained">Register</Button>
-            <p>Already have an account? <Link to="/login">Click here!</Link></p>
+                    color="primaryDark"
+                    helperText="Must be at least 3 characters"
+                    onChange={(event) => setUsernameInput(event.target.value)} />
+                <FormControl>
+                    <InputLabel htmlFor="password-one" color="primaryDark">Password *</InputLabel>
+                    <OutlinedInput
+                        id="password-one"
+                        type={showPasswordOne ? "text" : "password"}
+                        label="Password *"
+                        value={passwordOneInput}
+                        minLength="8"
+                        required
+                        color="primaryDark"
+                        endAdornment={
+                            <InputAdornment position="end">
+                                <IconButton
+                                    aria-label="toggle password visibility"
+                                    onClick={() => setShowPasswordOne(!showPasswordOne)}
+                                    edge="end"
+                                >
+                                    {showPasswordOne ? <Visibility /> : <VisibilityOff />}
+                                </IconButton>
+                            </InputAdornment>
+                        }
+                        onChange={(event) => setPasswordOneInput(event.target.value)} />
+                    <FormHelperText>Must be at least 8 characters</FormHelperText>
+                </FormControl>
+                {
+                    (passwordOneInput !== passwordTwoInput) ?
+                        <p className="warning">Passwords must match!</p> :
+                        null
+                }
+                <FormControl>
+                    <InputLabel htmlFor="password-two" color="primaryDark">Re-enter Password *</InputLabel>
+                    <OutlinedInput
+                        id="password-two"
+                        type={showPasswordTwo ? "text" : "password"}
+                        label="Re-enter Password *"
+                        value={passwordTwoInput}
+                        minLength="8"
+                        required
+                        color="primaryDark"
+                        endAdornment={
+                            <InputAdornment position="end">
+                                <IconButton
+                                    aria-label="toggle password visibility"
+                                    onClick={() => setShowPasswordTwo(!showPasswordTwo)}
+                                    edge="end"
+                                >
+                                    {showPasswordTwo ? <Visibility /> : <VisibilityOff />}
+                                </IconButton>
+                            </InputAdornment>
+                        }
+                        onChange={(event) => setPasswordTwoInput(event.target.value)}
+                    />
+                </FormControl>
+                <Button type="submit" variant="contained" color="primaryLight">Register</Button>
+                <p>Already have an account? <Link to="/login">Click here!</Link></p>
+            </ThemeProvider>
         </Box>
     );
 };
