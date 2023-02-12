@@ -12,7 +12,8 @@ const PostCard = ({ post, deletePost, theme }) => {
     const navigate = useNavigate();
     return (
         <Card sx={{
-            m: 3,
+            mt: 1,
+            mb: 1,
             minWidth: "60vw"
         }}>
             <CardContent>

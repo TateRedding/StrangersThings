@@ -53,7 +53,12 @@ const Things = ({ isLoggedIn, postData, deletePost, theme }) => {
             <div className="post-container">{
                 currPostData.map((post) => {
                     if (post.active) {
-                        return <PostCard key={post._id} post={post} deletePost={deletePost} theme={theme} />
+                        return (
+                            <div className="post-container">
+                                <PostCard key={post._id} post={post} deletePost={deletePost} theme={theme} />
+                                <Button className="back-to-top-button" onClick={() => scroll(0,0)}>Back to top</Button>
+                            </div>
+                        )
                     };
                 })
             }</div>
