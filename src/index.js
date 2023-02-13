@@ -2,20 +2,26 @@ import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { HashRouter, Routes, Route, useNavigate } from "react-router-dom";
 import { createTheme } from "@mui/material/styles";
+import Alert from "@mui/material/Alert";
+import EditPost from "./components/EditPost";
 import Header from "./components/Header";
 import Home from "./components/Home";
 import LogIn from "./components/LogIn";
-import Register from "./components/Register";
-import Profile from "./components/Profile";
-import Things from "./components/Things";
-import SinglePost from "./components/SinglePost";
 import NewPost from "./components/NewPost";
-import EditPost from "./components/EditPost";
+import Profile from "./components/Profile";
+import Register from "./components/Register";
+import SinglePost from "./components/SinglePost";
+import Snackbar from "@mui/material/Snackbar";
+import Things from "./components/Things";
 
 const App = () => {
     const APIURL = "https://strangers-things.herokuapp.com/api/2211-ftb-et-web-am"
     const [isLoggedIn, setIsLoggedIn] = useState(window.localStorage.getItem('strangers-things-token'));
     const [postData, setPostData] = useState([]);
+
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+    const [showErrorMessage, setShowErrorMessage] = useState(false);
+    const [successMessage, setSuccessMessage] = useState('');
 
     const navigate = useNavigate();
 
@@ -75,18 +81,71 @@ const App = () => {
 
     return (
         <>
-            <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} theme={theme} />
+            <Header
+                isLoggedIn={isLoggedIn}
+                setIsLoggedIn={setIsLoggedIn}
+                theme={theme} />
             <main>
                 <Routes>
-                    <Route path="/" element={<Home postData={postData} theme={theme} />} />
-                    <Route path="/login" element={<LogIn APIURL={APIURL} setIsLoggedIn={setIsLoggedIn} getPostData={getPostData} theme={theme} />} />
-                    <Route path="/register" element={<Register APIURL={APIURL} setIsLoggedIn={setIsLoggedIn} theme={theme} />} />
-                    <Route path="/profile" element={<Profile APIURL={APIURL} postData={postData} theme={theme}/>} />
-                    <Route path="/things" element={<Things isLoggedIn={isLoggedIn} postData={postData} deletePost={deletePost} theme={theme} />} />
-                    <Route path="/things/:postId" element={<SinglePost APIURL={APIURL} isLoggedIn={isLoggedIn} postData={postData} deletePost={deletePost} theme={theme} />} />
-                    <Route path="/newpost" element={<NewPost APIURL={APIURL} getPostData={getPostData} theme={theme} />} />
-                    <Route path="/edit/:postId" element={<EditPost APIURL={APIURL} postData={postData} getPostData={getPostData} theme={theme} />} />
+                    <Route path="/" element={
+                        <Home
+                            postData={postData}
+                            theme={theme} />} />
+                    <Route path="/login" element={
+                        <LogIn APIURL={APIURL}
+                            setIsLoggedIn={setIsLoggedIn}
+                            getPostData={getPostData}
+                            theme={theme} />} />
+                    <Route path="/register" element={
+                        <Register APIURL={APIURL}
+                            setIsLoggedIn={setIsLoggedIn}
+                            theme={theme} />} />
+                    <Route path="/profile" element={
+                        <Profile APIURL={APIURL}
+                            postData={postData}
+                            theme={theme} />} />
+                    <Route path="/things" element={
+                        <Things isLoggedIn={isLoggedIn}
+                            postData={postData}
+                            deletePost={deletePost}
+                            theme={theme} />} />
+                    <Route path="/things/:postId" element={
+                        <SinglePost APIURL={APIURL}
+                            isLoggedIn={isLoggedIn}
+                            postData={postData}
+                            deletePost={deletePost}
+                            setSuccessMessage={setSuccessMessage}
+                            setShowSuccessMessage={setShowSuccessMessage}
+                            setShowErrorMessage={setShowErrorMessage}
+                            theme={theme} />} />
+                    <Route path="/newpost" element={
+                        <NewPost APIURL={APIURL}
+                            getPostData={getPostData}
+                            theme={theme} />} />
+                    <Route path="/edit/:postId" element={
+                        <EditPost APIURL={APIURL}
+                            postData={postData}
+                            getPostData={getPostData}
+                            theme={theme} />} />
                 </Routes>
+                <Snackbar
+                    open={showSuccessMessage}
+                    autoHideDuration={6000}
+                    onClose={() => {
+                        setSuccessMessage('');
+                        setShowSuccessMessage(false)
+                    }} >
+                    <Alert variant="filled" severity="success">{successMessage}</Alert>
+                </Snackbar>
+                <Snackbar
+                    open={showErrorMessage}
+                    autoHideDuration={6000}
+                    onClose={() => {
+                        setErrorMessage('');
+                        setShowErrorMessage(false)
+                    }} >
+                    <Alert variant="filled" severity="error">Something went wrong! Try again.</Alert>
+                </Snackbar>
             </main>
         </>
     );

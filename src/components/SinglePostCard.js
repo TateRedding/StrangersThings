@@ -5,16 +5,12 @@ import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import Alert from '@mui/material/Alert';
 import PostDetails from "./PostDetails";
-import Snackbar from '@mui/material/Snackbar';
 import TextField from "@mui/material/TextField"
 import { ThemeProvider } from "@mui/material/styles";
 
-const SinglePostCard = ({ APIURL, isLoggedIn, post, deletePost, theme }) => {
+const SinglePostCard = ({ APIURL, isLoggedIn, post, deletePost, setSuccessMessage, setShowSuccessMessage, setShowErrorMessage, theme }) => {
     const [messageInput, setMessageInput] = useState('');
-    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-    const [showErrorMessage, setShowErrorMessage] = useState(false);
 
     const navigate = useNavigate();
 
@@ -34,6 +30,7 @@ const SinglePostCard = ({ APIURL, isLoggedIn, post, deletePost, theme }) => {
                 });
                 const result = await response.json();
                 if (result.success) {
+                    setSuccessMessage(`Message sent to ${post.author.username}`);
                     setShowSuccessMessage(true);
                     setMessageInput('');
                 } else {
@@ -81,18 +78,6 @@ const SinglePostCard = ({ APIURL, isLoggedIn, post, deletePost, theme }) => {
                                         color="primaryDark"
                                         onChange={(event) => setMessageInput(event.target.value)} />
                                     <Button type="submit" color="primaryDark">Send</Button>
-                                    <Snackbar
-                                        open={showSuccessMessage}
-                                        autoHideDuration={6000}
-                                        onClose={() => setShowSuccessMessage(false)} >
-                                        <Alert variant="filled" severity="success">Message Sent!</Alert>
-                                    </Snackbar>
-                                    <Snackbar
-                                        open={showErrorMessage}
-                                        autoHideDuration={6000}
-                                        onClose={() => setShowErrorMessage(false)} >
-                                        <Alert variant="filled" severity="error">Something went wrong! Try sending again.</Alert>
-                                    </Snackbar>
                                     <Button variant="outlined" color="primaryDark" onClick={() => history.back()}>Back</Button>
                                 </Box> :
                                 <Box>
