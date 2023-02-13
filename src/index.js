@@ -121,11 +121,17 @@ const App = () => {
                     <Route path="/newpost" element={
                         <NewPost APIURL={APIURL}
                             getPostData={getPostData}
+                            setSuccessMessage={setSuccessMessage}
+                            setShowSuccessMessage={setShowSuccessMessage}
+                            setShowErrorMessage={setShowErrorMessage}
                             theme={theme} />} />
                     <Route path="/edit/:postId" element={
                         <EditPost APIURL={APIURL}
                             postData={postData}
                             getPostData={getPostData}
+                            setSuccessMessage={setSuccessMessage}
+                            setShowSuccessMessage={setShowSuccessMessage}
+                            setShowErrorMessage={setShowErrorMessage}
                             theme={theme} />} />
                 </Routes>
                 <Snackbar
@@ -141,7 +147,6 @@ const App = () => {
                     open={showErrorMessage}
                     autoHideDuration={6000}
                     onClose={() => {
-                        setErrorMessage('');
                         setShowErrorMessage(false)
                     }} >
                     <Alert variant="filled" severity="error">Something went wrong! Try again.</Alert>

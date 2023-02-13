@@ -38,6 +38,7 @@ const SinglePostCard = ({ APIURL, isLoggedIn, post, deletePost, setSuccessMessag
                 };
             } catch (error) {
                 console.error("Something went wrong!", error);
+                setShowErrorMessage(true);
             };
         };
     };

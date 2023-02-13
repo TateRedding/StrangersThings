@@ -8,7 +8,7 @@ import FormGroup from "@mui/material/FormGroup";
 import TextField from "@mui/material/TextField";
 import { ThemeProvider } from "@mui/material/styles";
 
-const NewPost = ({ APIURL, getPostData, theme }) => {
+const NewPost = ({ APIURL, getPostData, setSuccessMessage, setShowSuccessMessage, setShowErrorMessage, theme }) => {
     const [titleInput, setTitleInput] = useState('');
     const [descriptionInput, setDescriptionInput] = useState('');
     const [priceInput, setPriceInput] = useState('');
@@ -44,6 +44,8 @@ const NewPost = ({ APIURL, getPostData, theme }) => {
                 });
                 const result = await response.json();
                 if (result.success) {
+                    setSuccessMessage(`Succesfully posted ${titleInput}`)
+                    setShowSuccessMessage(true);
                     setTitleInput('');
                     setDescriptionInput('');
                     setPriceInput('');
@@ -51,9 +53,12 @@ const NewPost = ({ APIURL, getPostData, theme }) => {
                     setWillDeliverInput(false);
                     getPostData();
                     navigate("/things");
+                } else {
+                    setShowErrorMessage(true);
                 };
             } catch (error) {
                 console.error("Something went wrong!", error);
+                setShowErrorMessage(true);
             };
         };
     };
