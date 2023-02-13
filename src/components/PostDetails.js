@@ -7,6 +7,7 @@ const PostDetails = ({ post }) => {
             <h3>{post.author.username}</h3>
             <p>{post.description}</p>
             <p>{post.price}</p>
+            <p>{post.location}</p>
             <p>{
                 post.willDeliver ?
                     "Willing to deliver" : "Not willing to deliver"
