@@ -3,9 +3,11 @@ import { createRoot } from "react-dom/client";
 import { HashRouter, Routes, Route, useNavigate } from "react-router-dom";
 import { createTheme } from "@mui/material/styles";
 import Alert from "@mui/material/Alert";
+import CloseIcon from '@mui/icons-material/Close';
 import EditPost from "./components/EditPost";
 import Header from "./components/Header";
 import Home from "./components/Home";
+import IconButton from '@mui/material/IconButton';
 import LogIn from "./components/LogIn";
 import NewPost from "./components/NewPost";
 import Profile from "./components/Profile";
@@ -140,8 +142,19 @@ const App = () => {
                     onClose={() => {
                         setSuccessMessage('');
                         setShowSuccessMessage(false)
-                    }} >
-                    <Alert variant="filled" severity="success">{successMessage}</Alert>
+                    }}>
+                    <Alert
+                        variant="filled"
+                        severity="success"
+                        action={
+                            <IconButton
+                                size="small"
+                                aria-label="close"
+                                color="inherit"
+                                onClick={() => setShowSuccessMessage(false)} >
+                                <CloseIcon fontSize="small" />
+                            </IconButton>
+                        } >{successMessage}</Alert>
                 </Snackbar>
                 <Snackbar
                     open={showErrorMessage}
@@ -149,7 +162,18 @@ const App = () => {
                     onClose={() => {
                         setShowErrorMessage(false)
                     }} >
-                    <Alert variant="filled" severity="error">Something went wrong! Try again.</Alert>
+                    <Alert
+                        variant="filled"
+                        severity="error"
+                        action={
+                            <IconButton
+                                size="small"
+                                aria-label="close"
+                                color="inherit"
+                                onClick={() => setShowErrorMessage(false)} >
+                                <CloseIcon fontSize="small" />
+                            </IconButton>
+                        } >Something went wrong! Try again.</Alert>
                 </Snackbar>
             </main>
         </>
