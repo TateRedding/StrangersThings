@@ -86,6 +86,7 @@ const App = () => {
             <Header
                 isLoggedIn={isLoggedIn}
                 setIsLoggedIn={setIsLoggedIn}
+                getPostData={getPostData}
                 theme={theme} />
             <main>
                 <Routes>

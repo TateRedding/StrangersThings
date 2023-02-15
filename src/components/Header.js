@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { ThemeProvider } from "@mui/material/styles";
 
-const Header = ({ isLoggedIn, setIsLoggedIn, theme }) => {
+const Header = ({ isLoggedIn, setIsLoggedIn, getPostData, theme }) => {
 
     const navigate = useNavigate();
 
@@ -24,6 +24,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn, theme }) => {
                                 <Button variant="outlined" className="nav-button" color="primaryLight" onClick={() => {
                                     window.localStorage.removeItem("strangers-things-token");
                                     setIsLoggedIn(false);
+                                    getPostData();
                                     navigate('/')
                                 }}>Log Out</Button>
                             </> :
