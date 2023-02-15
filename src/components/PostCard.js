@@ -14,7 +14,7 @@ const PostCard = ({ post, deletePost, theme }) => {
         <Card sx={{
             mt: 1,
             mb: 1,
-            minWidth: "60vw"
+            width: "60vw"
         }}>
             <CardContent>
                 <PostDetails post={post} />

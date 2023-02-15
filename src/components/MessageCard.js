@@ -1,5 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Accordion from "@mui/material/Accordion";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import AccordionSummary from "@mui/material/AccordionSummary";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -11,9 +14,11 @@ const MessageCard = ({ message, loggedInUserId, postData, theme }) => {
     const navigate = useNavigate();
 
     const isThingActive = (postId) => {
-        const post = postData.filter((post) => post._id === postId)[0];
-        if (post && post.active) {
-            return true;
+        if (postData) {
+            const post = postData.filter((post) => post._id === postId)[0];
+            if (post && post.active) {
+                return true;
+            }
         }
         return false;
     };
@@ -24,7 +29,7 @@ const MessageCard = ({ message, loggedInUserId, postData, theme }) => {
             sx={{
                 mt: 1,
                 mb: 1,
-                minWidth: "60vw"
+                width: "60vw"
             }}>
             <CardContent>
                 {
