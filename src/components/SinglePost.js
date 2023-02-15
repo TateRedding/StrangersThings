@@ -32,9 +32,10 @@ const SinglePost = ({ APIURL, isLoggedIn, postData, deletePost, setSuccessMessag
             {
                 post.isAuthor ?
                     <div className="single-post-messages">
+                        <h3>Messages</h3>
                         {
                             post.messages.length ?
-                                post.messages.map((message) => <MessageCard key={message._id} message={message} theme={theme} />) :
+                                post.messages.map((message) => <MessageCard key={message._id} message={message} />) :
                                 <p>No messages about this post.</p>
                         }
                     </div> :

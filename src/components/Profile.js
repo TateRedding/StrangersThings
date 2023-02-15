@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Button from "@mui/material/Button";
-import MessageCard from "./MessageCard";
+import MessageAccordion from "./MessageAccordion";
 
 const Profile = ({ APIURL, postData, theme }) => {
     const [userData, setUserData] = useState({});
@@ -41,10 +40,13 @@ const Profile = ({ APIURL, postData, theme }) => {
                                 (Object.keys(userData).length && inbox.length) ?
                                     inbox.map((message) => {
                                         return (
-                                            <div key={message._id} className="single-message-container">
-                                                <MessageCard message={message} loggedInUserId={userData._id} postData={postData} theme={theme} />
-                                                <Button className="back-to-top-button" onClick={() => scroll(0, 0)}>Back to top</Button>
-                                            </div>)
+                                            <MessageAccordion
+                                                key={message._id}
+                                                message={message}
+                                                loggedInUserId={userData._id}
+                                                postData={postData}
+                                                theme={theme} />
+                                        );
                                     }) :
                                     <p>No messages to display!</p>
                             }
@@ -55,10 +57,13 @@ const Profile = ({ APIURL, postData, theme }) => {
                                 (Object.keys(userData).length && sentMessages.length) ?
                                     sentMessages.map((message) => {
                                         return (
-                                            <div key={message._id} className="single-message-container">
-                                                <MessageCard message={message} loggedInUserId={userData._id} postData={postData} theme={theme} />
-                                                <Button className="back-to-top-button" onClick={() => scroll(0, 0)}>Back to top</Button>
-                                            </div>)
+                                            <MessageAccordion
+                                                key={message._id}
+                                                message={message}
+                                                loggedInUserId={userData._id}
+                                                postData={postData}
+                                                theme={theme} />
+                                        );
                                     }) :
                                     <p>No messages to display!</p>
                             }

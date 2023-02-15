@@ -46,7 +46,7 @@ const SinglePostCard = ({ APIURL, isLoggedIn, post, deletePost, setSuccessMessag
     return (
         <Card sx={{
             m: 1,
-            minWidth: "60vw",
+            width: "60vw",
             "& .MuiTextField-root, & .MuiButton-root": { m: .75 },
             "& .MuiTextField-root": { width: "100%" }
         }}>

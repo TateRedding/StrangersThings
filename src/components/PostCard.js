@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -22,7 +22,7 @@ const PostCard = ({ post, deletePost, theme }) => {
             <CardActions>
                 <ThemeProvider theme={theme}>
                     {
-                        post.isAuthor ?
+                        post.isAuthor && useLocation().pathname !== '/' ?
                             <>
                                 <Button variant="outlined" color="primaryDark" onClick={() => navigate(`/edit/${post._id}`)}>Edit</Button>
                                 <Button variant="outlined" color="error" onClick={() => deletePost(post._id)}>Delete</Button>
