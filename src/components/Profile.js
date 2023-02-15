@@ -43,46 +43,42 @@ const Profile = ({ APIURL, postData, theme }) => {
             <h2>{userData.username}</h2>
             {
                 (Object.keys(userData).length) ?
-                    <>
-                        <div className="message-container">
-                            <h3>Inbox</h3>
-                            {
-                                (Object.keys(userData).length && inbox.length) ?
-                                    inbox.map((message) => {
-                                        return (
-                                            isThingActive(message.post._id) ?
-                                                <MessageAccordion
-                                                    key={message._id}
-                                                    message={message}
-                                                    loggedInUserId={userData._id}
-                                                    postData={postData}
-                                                    theme={theme} /> :
-                                                null
-                                        );
-                                    }) :
-                                    <p>No messages to display!</p>
-                            }
-                        </div>
-                        <div className="message-container">
-                            <h3>Sent</h3>
-                            {
-                                (Object.keys(userData).length && sentMessages.length) ?
-                                    sentMessages.map((message) => {
-                                        return (
-                                            isThingActive(message.post._id) ?
-                                                <MessageAccordion
-                                                    key={message._id}
-                                                    message={message}
-                                                    loggedInUserId={userData._id}
-                                                    postData={postData}
-                                                    theme={theme} /> :
-                                                null
-                                        );
-                                    }) :
-                                    <p>No messages to display!</p>
-                            }
-                        </div>
-                    </> :
+                    <div className="message-container">
+                        <h3>Inbox</h3>
+                        {
+                            (Object.keys(userData).length && inbox.length) ?
+                                inbox.map((message) => {
+                                    return (
+                                        isThingActive(message.post._id) ?
+                                            <MessageAccordion
+                                                key={message._id}
+                                                message={message}
+                                                loggedInUserId={userData._id}
+                                                postData={postData}
+                                                theme={theme} /> :
+                                            null
+                                    );
+                                }) :
+                                <p>No messages to display!</p>
+                        }
+                        <h3>Sent</h3>
+                        {
+                            (Object.keys(userData).length && sentMessages.length) ?
+                                sentMessages.map((message) => {
+                                    return (
+                                        isThingActive(message.post._id) ?
+                                            <MessageAccordion
+                                                key={message._id}
+                                                message={message}
+                                                loggedInUserId={userData._id}
+                                                postData={postData}
+                                                theme={theme} /> :
+                                            null
+                                    );
+                                }) :
+                                <p>No messages to display!</p>
+                        }
+                    </div> :
                     <h3>Loading messages...</h3>
             }
 
