@@ -6,6 +6,16 @@ const Profile = ({ APIURL, postData, theme }) => {
     const [inbox, setInbox] = useState([]);
     const [sentMessages, setSentMessages] = useState([]);
 
+    const isThingActive = (postId) => {
+        if (postData) {
+            const post = postData.filter((post) => post._id === postId)[0];
+            if (post && post.active) {
+                return true;
+            };
+        };
+        return false;
+    };
+
     useEffect(() => {
         const getUserData = async () => {
             try {
@@ -40,12 +50,14 @@ const Profile = ({ APIURL, postData, theme }) => {
                                 (Object.keys(userData).length && inbox.length) ?
                                     inbox.map((message) => {
                                         return (
-                                            <MessageAccordion
-                                                key={message._id}
-                                                message={message}
-                                                loggedInUserId={userData._id}
-                                                postData={postData}
-                                                theme={theme} />
+                                            isThingActive(message.post._id) ?
+                                                <MessageAccordion
+                                                    key={message._id}
+                                                    message={message}
+                                                    loggedInUserId={userData._id}
+                                                    postData={postData}
+                                                    theme={theme} /> :
+                                                null
                                         );
                                     }) :
                                     <p>No messages to display!</p>
@@ -57,12 +69,14 @@ const Profile = ({ APIURL, postData, theme }) => {
                                 (Object.keys(userData).length && sentMessages.length) ?
                                     sentMessages.map((message) => {
                                         return (
-                                            <MessageAccordion
-                                                key={message._id}
-                                                message={message}
-                                                loggedInUserId={userData._id}
-                                                postData={postData}
-                                                theme={theme} />
+                                            isThingActive(message.post._id) ?
+                                                <MessageAccordion
+                                                    key={message._id}
+                                                    message={message}
+                                                    loggedInUserId={userData._id}
+                                                    postData={postData}
+                                                    theme={theme} /> :
+                                                null
                                         );
                                     }) :
                                     <p>No messages to display!</p>

@@ -9,17 +9,6 @@ import { ThemeProvider } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 
 const MessageAccordion = ({ message, loggedInUserId, postData, theme }) => {
-
-    const isThingActive = (postId) => {
-        if (postData) {
-            const post = postData.filter((post) => post._id === postId)[0];
-            if (post && post.active) {
-                return true;
-            }
-        }
-        return false;
-    };
-
     const navigate = useNavigate();
     return (
         <Accordion sx={{ width: "60vw" }} >
@@ -32,18 +21,9 @@ const MessageAccordion = ({ message, loggedInUserId, postData, theme }) => {
                 <Typography sx={{ color: "text.secondary" }}>Re: {message.post.title}</Typography>
             </AccordionSummary>
             <AccordionDetails>
-                {
-                    isThingActive(message.post._id) ?
-                        null :
-                        <p className="warning">This Thing is no longer active!</p>
-                }
                 <p>{message.content}</p>
                 <ThemeProvider theme={theme}>
-                    {
-                        isThingActive(message.post._id) ?
-                            <Button variant="outlined" color="primaryDark" onClick={() => navigate(`/things/${message.post._id}`)}>View Thing</Button> :
-                            null
-                    }
+                    <Button variant="outlined" color="primaryDark" onClick={() => navigate(`/things/${message.post._id}`)}>View Thing</Button>
                 </ThemeProvider>
             </AccordionDetails>
         </Accordion>
